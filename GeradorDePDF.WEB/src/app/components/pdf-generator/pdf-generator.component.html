@@ -1,0 +1,15 @@
+
+<nav class="navbar topo">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Gerador de PDF</span>
+  </div>
+</nav>
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="input-group">
+      <input class="form-control" type="file" (change)="onFileSelected($event)" accept=".txt" [(ngModel)]="selectedFile">
+      <button class="btn btn-outline-secondary" type="button" (click)="onUpload()">Enviar</button>
+    </div>
+  </div>
+</div>
