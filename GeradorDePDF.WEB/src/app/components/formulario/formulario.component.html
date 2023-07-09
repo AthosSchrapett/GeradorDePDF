@@ -1,0 +1,16 @@
+<hr>
+
+<div class="input-group mb-3">
+  <span class="input-group-text">Título</span>
+  <input class="form-control" type="text" [(ngModel)]="modelPdf.titulo">
+</div>
+<div class="input-group">
+  <span class="input-group-text">Conteúdo</span>
+  <textarea class="form-control" aria-label="With textarea" (input)="ajustaTamanhoTextArea(element)" #element
+    [(ngModel)]="conteudo"></textarea>
+</div>
+
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="submit()">Enviar</button>
+</div>
+

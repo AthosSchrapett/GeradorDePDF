@@ -17,12 +17,17 @@ public class PdfService : IPdfService
         while ((line = reader.ReadLine()) is not null)
             lines.Add(line);
 
-        ModelTxt? modelTxt = new(lines[0], lines.Skip(1));
+        ModelPdf? model = new(lines[0], lines.Skip(1));
 
-        string caminho = ArquivoHelper.CriaPdf(modelTxt);
+        string caminho = ArquivoHelper.CriaPdf(model);
 
-        ArquivoHelper.GeraArquivoDownload(caminho, out MemoryStream memoryStream);
+        return ArquivoHelper.GeraArquivoDownload(caminho);
+    }
 
-        return memoryStream;
-    }    
+    public MemoryStream GeraPdf(ModelPdf model)
+    {
+        string caminho = ArquivoHelper.CriaPdf(model);
+
+        return ArquivoHelper.GeraArquivoDownload(caminho);
+    }
 }

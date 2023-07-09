@@ -1,4 +1,5 @@
-﻿using GeradorDePDF.API.Services.Interfaces;
+﻿using GeradorDePDF.API.Models;
+using GeradorDePDF.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorDePDF.API.Controllers
@@ -18,6 +19,14 @@ namespace GeradorDePDF.API.Controllers
                 return StatusCode(StatusCodes.Status406NotAcceptable, "Formato do arquivo incorreto");
 
             MemoryStream file = _pdfService.GeraPdf(files[0]);
+
+            return File(file, "application/pdf", "temporary.pdf");
+        }
+
+        [HttpPost("formulario")]
+        public IActionResult Post([FromBody] ModelPdf model)
+        {
+            MemoryStream file = _pdfService.GeraPdf(model);
 
             return File(file, "application/pdf", "temporary.pdf");
         }
