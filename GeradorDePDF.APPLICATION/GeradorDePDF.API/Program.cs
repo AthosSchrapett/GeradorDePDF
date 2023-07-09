@@ -13,6 +13,8 @@ var app = builder.Build();
 
 app.UseSwaggerDoc();
 
+app.UseHttpsRedirection();
+
 app.UseCors(c =>
 {
     c.AllowAnyHeader();
