@@ -23,8 +23,8 @@ public class PdfService : IPdfService
 
         ArquivoHelper.GeraArquivoDownload(caminho, out MemoryStream memoryStream);
 
-        FileInfo fileInfo = new(caminho);
-        fileInfo.Delete();
+        //FileInfo fileInfo = new(caminho);
+        //fileInfo.Delete();
 
         return memoryStream;
     }    
