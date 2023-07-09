@@ -11,7 +11,6 @@ public class ArquivoHelper
 {
     public static string CriaPdf(ModelTxt modelTxt)
     {
-        //string caminho = Path.Combine(Environment.CurrentDirectory, "files", "temporary.pdf");
         string caminho = Path.GetTempFileName();
 
         PdfWriter writer = new(caminho);
@@ -49,7 +48,7 @@ public class ArquivoHelper
         return caminho;
     }
 
-    public static MemoryStream GeraArquivoDownload(string caminho, out MemoryStream memoryStream)
+    public static void GeraArquivoDownload(string caminho, out MemoryStream memoryStream)
     {
         FileStream origemStream = File.Open(caminho, FileMode.Open);
         memoryStream = new MemoryStream();
@@ -58,7 +57,5 @@ public class ArquivoHelper
         memoryStream.Seek(0, SeekOrigin.Begin);
 
         origemStream.Close();
-
-        return memoryStream;
     }
 }
