@@ -9,7 +9,7 @@ WORKDIR /src
 COPY ["GeradorDePDF.API/GeradorDePDF.API.csproj", "GeradorDePDF.API/"]
 RUN dotnet restore "GeradorDePDF.API/GeradorDePDF.API.csproj"
 COPY . .
-WORKDIR "/GeradorDePDF.API"
+WORKDIR "./GeradorDePDF.API"
 RUN dotnet build "GeradorDePDF.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
