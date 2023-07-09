@@ -6,10 +6,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["GeradorDePDF/GeradorDePDF.API/GeradorDePDF.API.csproj", "GeradorDePDF.API/"]
+COPY ["GeradorDePDF.API/GeradorDePDF.API.csproj", "GeradorDePDF.API/"]
 RUN dotnet restore "GeradorDePDF.API/GeradorDePDF.API.csproj"
 COPY . .
-WORKDIR "/src/GeradorDePDF/GeradorDePDF.API"
+WORKDIR "/GeradorDePDF.API"
 RUN dotnet build "GeradorDePDF.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
