@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="temp\" />
+    <Folder Include="files\" />
   </ItemGroup>
 
 </Project>

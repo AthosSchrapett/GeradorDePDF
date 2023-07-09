@@ -11,7 +11,7 @@ public class ArquivoHelper
 {
     public static string CriaPdf(ModelTxt modelTxt)
     {
-        string caminho = Path.Combine(Environment.CurrentDirectory, "temp", "temporary.pdf");
+        string caminho = Path.Combine(Environment.CurrentDirectory, "files", "temporary.pdf");
         Console.WriteLine(caminho);
 
         PdfWriter writer = new(caminho);
