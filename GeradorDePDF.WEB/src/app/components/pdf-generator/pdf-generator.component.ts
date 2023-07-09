@@ -11,6 +11,8 @@ export class PdfGeneratorComponent {
   selectedFile!: any;
   pdfUrl!: string;
 
+  mensagemErro: string = "";
+
   constructor(
     private pdfGeneratorService: PdfGeneratorService
   ) {}
@@ -32,9 +34,12 @@ export class PdfGeneratorComponent {
         },
         error: (e) => {
           console.error(e);
+          this.mensagemErro = "Formato do arquivo incorreto";
+          this.selectedFile = null;
         },
         complete: () => {
           this.selectedFile = null;
+          this.mensagemErro = "";
         }
       });
     }

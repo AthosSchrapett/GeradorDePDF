@@ -14,6 +14,9 @@ namespace GeradorDePDF.API.Controllers
         [HttpPost]
         public IActionResult Post([FromForm] List<IFormFile> files)
         {
+            if (Path.GetExtension(files[0].FileName) != ".txt")
+                return StatusCode(StatusCodes.Status406NotAcceptable, "Formato do arquivo incorreto");
+
             MemoryStream file = _pdfService.GeraPdf(files[0]);
 
             return File(file, "application/pdf", "temporary.pdf");
