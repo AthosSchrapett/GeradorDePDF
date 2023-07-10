@@ -1,0 +1,11 @@
+<div class="input-group">
+  <input [disabled]="tipoInclusao !== TipoInclusao.Txt" class="form-control" type="file" (change)="onFileSelected($event)" accept=".txt" [(ngModel)]="selectedFile">
+  <button [disabled]="tipoInclusao !== TipoInclusao.Txt" class="btn btn-outline-secondary" type="button" (click)="onUpload()">Enviar</button>
+</div>
+
+<div *ngIf="mensagemErro != ''" class="container-fluid mt-3">
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <div>{{ mensagemErro }}</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>

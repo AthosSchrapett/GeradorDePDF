@@ -1,5 +1,6 @@
 import { PdfGeneratorService } from './../../services/pdf-generator.service';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { ModelPDF } from 'src/app/models/modelPdf.model';
 
 @Component({
@@ -16,6 +17,9 @@ export class FormularioComponent {
   pdfUrl!: string;
   modelPdf: ModelPDF = new ModelPDF();
   conteudo: string = "";
+
+  @Input() tipoInclusao!: TipoInclusao;
+  TipoInclusao = TipoInclusao;
 
   ajustaTamanhoTextArea(element: any): void {
     element.style.height = "auto";

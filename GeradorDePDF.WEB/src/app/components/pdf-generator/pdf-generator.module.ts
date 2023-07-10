@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FormularioModule } from '../formulario/formulario.module';
+import { TxtModule } from '../txt/txt.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormularioModule } from '../formulario/formulario.module';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    FormularioModule
+    FormularioModule,
+    TxtModule
   ],
   exports: [
     PdfGeneratorComponent
