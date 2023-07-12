@@ -18,6 +18,8 @@ export class FormularioComponent {
   modelPdf: ModelPDF = new ModelPDF();
   conteudo: string = "";
 
+  executaSpinner: boolean = false;
+
   @Input() tipoInclusao!: TipoInclusao;
   TipoInclusao = TipoInclusao;
 
@@ -27,6 +29,9 @@ export class FormularioComponent {
   }
 
   submit(): void {
+
+    this.executaSpinner = true;
+
     this.conteudo.split('\n').forEach(
       element => this.modelPdf.conteudo.push(element)
     );
@@ -39,10 +44,12 @@ export class FormularioComponent {
       },
       error: (e) => {
         console.error(e);
+        this.executaSpinner = false;
       },
       complete: () => {
         this.modelPdf = new ModelPDF();
         this.conteudo = "";
+        this.executaSpinner = false;
       }
     })
   }

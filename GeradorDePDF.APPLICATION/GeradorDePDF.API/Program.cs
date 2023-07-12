@@ -1,4 +1,5 @@
 using GeradorDePDF.API.Extensions;
+using GeradorDePDF.API.Middelwares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,5 +26,7 @@ app.UseCors(c =>
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<HandleException>();
 
 app.Run();

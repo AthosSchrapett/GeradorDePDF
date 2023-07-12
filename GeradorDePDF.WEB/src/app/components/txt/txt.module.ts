@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TxtComponent } from './txt.component';
 import { FormsModule } from '@angular/forms';
-
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule
   ],
   exports: [

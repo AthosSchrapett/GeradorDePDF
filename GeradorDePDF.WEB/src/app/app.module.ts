@@ -7,12 +7,12 @@ import { PdfGeneratorModule } from './components/pdf-generator/pdf-generator.mod
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     PdfGeneratorModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

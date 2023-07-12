@@ -13,6 +13,8 @@ export class TxtComponent {
 
   mensagemErro: string = "";
 
+  executaSpinner: boolean = false;
+
   @Input() tipoInclusao!: TipoInclusao;
   TipoInclusao = TipoInclusao;
 
@@ -25,6 +27,9 @@ export class TxtComponent {
   }
 
   onUpload(){
+
+    this.executaSpinner = true;
+
     if(this.selectedFile){
       const formData = new FormData();
       formData.append('files', this.selectedFile, this.selectedFile.name);
@@ -37,12 +42,16 @@ export class TxtComponent {
         },
         error: (e) => {
           console.error(e);
-          this.mensagemErro = "Formato do arquivo incorreto";
+          if (e.status === 406){
+            this.mensagemErro = "Formato do arquivo incorreto";
+          }
+          this.executaSpinner = false;
           this.selectedFile = null;
         },
         complete: () => {
           this.selectedFile = null;
           this.mensagemErro = "";
+          this.executaSpinner = false;
         }
       });
     }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PdfGeneratorComponent } from './pdf-generator.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +17,7 @@ import { TxtModule } from '../txt/txt.module';
     HttpClientModule,
     FormsModule,
     FormularioModule,
-    TxtModule
+    TxtModule,
   ],
   exports: [
     PdfGeneratorComponent

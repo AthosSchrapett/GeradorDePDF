@@ -1,4 +1,5 @@
-﻿using GeradorDePDF.API.Models;
+﻿using GeradorDePDF.API.Exceptions;
+using GeradorDePDF.API.Models;
 using GeradorDePDF.API.Services.Helpers;
 using GeradorDePDF.API.Services.Interfaces;
 
@@ -8,6 +9,9 @@ public class PdfService : IPdfService
 {
     public MemoryStream GeraPdf(IFormFile file)
     {
+        if (Path.GetExtension(file.FileName) != ".txt")
+            throw new FormatoArquivoIncorretoException();
+
         List<string>? lines = new();
 
         using StreamReader? reader = new(file.OpenReadStream());
