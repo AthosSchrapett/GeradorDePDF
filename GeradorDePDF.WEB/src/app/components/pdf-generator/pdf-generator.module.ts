@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FormularioModule } from '../formulario/formulario.module';
 import { TxtModule } from '../txt/txt.module';
+import { DownloadModule } from '../download/download.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TxtModule } from '../txt/txt.module';
     FormsModule,
     FormularioModule,
     TxtModule,
+    DownloadModule
   ],
   exports: [
     PdfGeneratorComponent

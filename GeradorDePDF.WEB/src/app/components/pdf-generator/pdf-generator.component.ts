@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./pdf-generator.component.css']
 })
 export class PdfGeneratorComponent {
-  tipoInclusao!: TipoInclusao;
+  tipoInclusao: TipoInclusao = TipoInclusao.Txt;
   TipoInclusao = TipoInclusao;
 }
