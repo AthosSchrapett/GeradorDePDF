@@ -7,6 +7,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["GeradorDePDF.API/GeradorDePDF.API.csproj", "GeradorDePDF.API/"]
+COPY ["GeradorDePDF.Domain/GeradorDePDF.Domain.csproj", "GeradorDePDF.Domain/"]
+COPY ["GeradorDePDF.Application/GeradorDePDF.Application.csproj", "GeradorDePDF.Application/"]
+COPY ["GeradorDePDF.Infra.IoC/GeradorDePDF.Infra.IoC.csproj", "GeradorDePDF.Infra.IoC/"]
 RUN dotnet restore "GeradorDePDF.API/GeradorDePDF.API.csproj"
 COPY . .
 WORKDIR "./GeradorDePDF.API"

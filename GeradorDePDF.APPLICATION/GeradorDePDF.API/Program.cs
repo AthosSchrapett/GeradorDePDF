@@ -1,5 +1,5 @@
-using GeradorDePDF.API.Extensions;
-using GeradorDePDF.API.Middelwares;
+using GeradorDePDF.Infra.IoC.Extensions;
+using GeradorDePDF.Infra.IoC.Middelwares;
 
 var builder = WebApplication.CreateBuilder(args);
 

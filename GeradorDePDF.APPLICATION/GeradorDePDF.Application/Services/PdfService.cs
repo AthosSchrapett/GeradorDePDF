@@ -1,9 +1,10 @@
-﻿using GeradorDePDF.API.Exceptions;
-using GeradorDePDF.API.Models;
-using GeradorDePDF.API.Services.Helpers;
-using GeradorDePDF.API.Services.Interfaces;
+﻿using GeradorDePDF.Domain.Exceptions;
+using GeradorDePDF.Domain.Models;
+using GeradorDePDF.Domain.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
+using GeradorDePDF.Application.Helpers;
 
-namespace GeradorDePDF.API.Services.Implementations;
+namespace GeradorDePDF.Application.Services;
 
 public class PdfService : IPdfService
 {

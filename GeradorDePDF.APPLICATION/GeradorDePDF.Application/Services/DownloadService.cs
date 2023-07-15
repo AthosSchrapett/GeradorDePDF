@@ -1,8 +1,7 @@
-﻿using GeradorDePDF.API.Services.Helpers;
-using GeradorDePDF.API.Services.Interfaces;
-using System.Reflection;
+﻿using GeradorDePDF.Domain.Services.Interfaces;
+using GeradorDePDF.Application.Helpers;
 
-namespace GeradorDePDF.API.Services.Implementations;
+namespace GeradorDePDF.Application.Services;
 
 public class DownloadService : IDownloadService
 {

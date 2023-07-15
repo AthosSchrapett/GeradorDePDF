@@ -1,6 +1,7 @@
-﻿using GeradorDePDF.API.Models;
+﻿using GeradorDePDF.Domain.Models;
+using Microsoft.AspNetCore.Http;
 
-namespace GeradorDePDF.API.Services.Interfaces;
+namespace GeradorDePDF.Domain.Services.Interfaces;
 
 public interface IPdfService
 {

@@ -14,14 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="itext7" Version="8.0.0" />
-    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <Folder Include="Arquivos\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Arquivos\" />
+    <ProjectReference Include="..\GeradorDePDF.Domain\GeradorDePDF.Domain.csproj" />
+    <ProjectReference Include="..\GeradorDePDF.Infra.IoC\GeradorDePDF.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>

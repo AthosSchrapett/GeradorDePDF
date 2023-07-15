@@ -1,11 +1,11 @@
-﻿using GeradorDePDF.API.Models;
+﻿using GeradorDePDF.Domain.Models;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 
-namespace GeradorDePDF.API.Services.Helpers;
+namespace GeradorDePDF.Application.Helpers;
 
 public class ArquivoHelper
 {

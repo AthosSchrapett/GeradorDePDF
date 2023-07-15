@@ -1,4 +1,4 @@
-﻿namespace GeradorDePDF.API.Services.Interfaces
+﻿namespace GeradorDePDF.Domain.Services.Interfaces
 {
     public interface IDownloadService
     {

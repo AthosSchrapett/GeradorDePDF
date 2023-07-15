@@ -1,4 +1,4 @@
-﻿namespace GeradorDePDF.API.Models;
+﻿namespace GeradorDePDF.Domain.Models;
 
 public class ModelPdf
 {

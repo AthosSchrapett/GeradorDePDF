@@ -1,4 +1,4 @@
-﻿namespace GeradorDePDF.API.Exceptions
+﻿namespace GeradorDePDF.Domain.Exceptions
 {
     public class FormatoArquivoIncorretoException : Exception
     {

@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDePDF.API", "GeradorDePDF.API\GeradorDePDF.API.csproj", "{D21F25C7-1D8B-4043-9EA3-1D127740B572}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorDePDF.API", "GeradorDePDF.API\GeradorDePDF.API.csproj", "{D21F25C7-1D8B-4043-9EA3-1D127740B572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDePDF.Application", "GeradorDePDF.Application\GeradorDePDF.Application.csproj", "{4374F27F-D307-4845-855D-E05A780AE26D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDePDF.Domain", "GeradorDePDF.Domain\GeradorDePDF.Domain.csproj", "{257CBD5B-4A57-49FF-9D1B-512389D20576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDePDF.Infra.IoC", "GeradorDePDF.Infra.IoC\GeradorDePDF.Infra.IoC.csproj", "{3012526D-674C-4A9E-8245-17F088361D2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{D21F25C7-1D8B-4043-9EA3-1D127740B572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D21F25C7-1D8B-4043-9EA3-1D127740B572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D21F25C7-1D8B-4043-9EA3-1D127740B572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4374F27F-D307-4845-855D-E05A780AE26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4374F27F-D307-4845-855D-E05A780AE26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4374F27F-D307-4845-855D-E05A780AE26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4374F27F-D307-4845-855D-E05A780AE26D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257CBD5B-4A57-49FF-9D1B-512389D20576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257CBD5B-4A57-49FF-9D1B-512389D20576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257CBD5B-4A57-49FF-9D1B-512389D20576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257CBD5B-4A57-49FF-9D1B-512389D20576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3012526D-674C-4A9E-8245-17F088361D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3012526D-674C-4A9E-8245-17F088361D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3012526D-674C-4A9E-8245-17F088361D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3012526D-674C-4A9E-8245-17F088361D2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

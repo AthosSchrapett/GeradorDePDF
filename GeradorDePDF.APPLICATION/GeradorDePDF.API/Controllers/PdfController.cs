@@ -1,5 +1,5 @@
-﻿using GeradorDePDF.API.Models;
-using GeradorDePDF.API.Services.Interfaces;
+﻿using GeradorDePDF.Domain.Models;
+using GeradorDePDF.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorDePDF.API.Controllers

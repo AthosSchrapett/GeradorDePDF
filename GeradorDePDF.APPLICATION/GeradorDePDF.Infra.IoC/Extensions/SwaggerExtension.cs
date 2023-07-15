@@ -1,6 +1,8 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
-namespace GeradorDePDF.API.Extensions;
+namespace GeradorDePDF.Infra.IoC.Extensions;
 
 public static class SwaggerExtension
 {
