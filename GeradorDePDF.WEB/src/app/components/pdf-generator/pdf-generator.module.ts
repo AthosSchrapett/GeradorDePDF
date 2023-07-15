@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PdfGeneratorComponent } from './pdf-generator.component';
@@ -19,7 +20,8 @@ import { DownloadModule } from '../download/download.module';
     FormsModule,
     FormularioModule,
     TxtModule,
-    DownloadModule
+    DownloadModule,
+    SharedModule
   ],
   exports: [
     PdfGeneratorComponent

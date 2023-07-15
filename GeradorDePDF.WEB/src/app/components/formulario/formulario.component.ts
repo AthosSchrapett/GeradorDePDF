@@ -2,6 +2,7 @@ import { PdfGeneratorService } from './../../services/pdf-generator.service';
 import { Component, Input } from '@angular/core';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { ModelPDF } from 'src/app/models/modelPdf.model';
+import { ModalPdfService } from 'src/app/shared/modal-pdf/modal-pdf.service';
 
 @Component({
   selector: 'app-formulario',
@@ -11,7 +12,8 @@ import { ModelPDF } from 'src/app/models/modelPdf.model';
 export class FormularioComponent {
 
   constructor(
-    private pdfGeneratorService: PdfGeneratorService
+    private pdfGeneratorService: PdfGeneratorService,
+    private modalPdfService: ModalPdfService
   ) { }
 
   pdfUrl!: string;
@@ -45,9 +47,12 @@ export class FormularioComponent {
       error: (e) => {
         console.error(e);
         this.executaSpinner = false;
+        this.modalPdfService.atualizarExibirModal(false);
       },
       complete: () => {
-        this.exibirModal = true;
+        this.modalPdfService.atualizarExibirModal(true);
+        this.modalPdfService.atualizarPdfUrl(this.pdfUrl);
+
         this.modelPdf = new ModelPDF();
         this.conteudo = "";
         this.executaSpinner = false;

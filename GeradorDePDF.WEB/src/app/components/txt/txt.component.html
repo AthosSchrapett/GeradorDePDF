@@ -1,7 +1,7 @@
 <app-spinner *ngIf="executaSpinner"></app-spinner>
 
 <div class="input-group">
-  <input [disabled]="tipoInclusao !== TipoInclusao.Txt" class="form-control" type="file" (change)="onFileSelected($event)" accept=".txt" [(ngModel)]="selectedFile">
+  <input [disabled]="tipoInclusao !== TipoInclusao.Txt" class="form-control" type="file" #fileInput (change)="onFileSelected(fileInput)" accept=".txt">
   <button [disabled]="tipoInclusao !== TipoInclusao.Txt || !selectedFile" class="btn btn-outline-secondary" type="button" (click)="onUpload()">Enviar</button>
 </div>
 
@@ -11,5 +11,3 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 </div>
-
-<app-modal-pdf [exibirModal]="exibirModal" [urlPdf]="pdfUrl"></app-modal-pdf>

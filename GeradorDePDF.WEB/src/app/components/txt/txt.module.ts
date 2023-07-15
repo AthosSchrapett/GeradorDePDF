@@ -12,7 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     SharedModule,
     FormsModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
     TxtComponent

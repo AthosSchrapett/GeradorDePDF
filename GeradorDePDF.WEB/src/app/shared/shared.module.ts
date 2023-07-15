@@ -15,7 +15,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
   ],
   exports: [
     SpinnerComponent,
-    ModalPdfComponent
+    ModalPdfComponent,
   ]
 })
 export class SharedModule { }
