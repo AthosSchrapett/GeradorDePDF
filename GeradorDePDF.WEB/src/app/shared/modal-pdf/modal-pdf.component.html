@@ -1,0 +1,6 @@
+<div class="modal" *ngIf="exibirModal">
+  <div class="modal-content">
+    <ngx-extended-pdf-viewer [src]="urlPdf"></ngx-extended-pdf-viewer>
+  </div>
+  <button class="modal-close-button" (click)="fecharModal()">FECHAR</button>
+</div>

@@ -17,6 +17,7 @@ export class FormularioComponent {
   pdfUrl!: string;
   modelPdf: ModelPDF = new ModelPDF();
   conteudo: string = "";
+  exibirModal: boolean = false;
 
   executaSpinner: boolean = false;
 
@@ -40,13 +41,13 @@ export class FormularioComponent {
       next: (res: any) => {
         const blob = new Blob([res], { type: "application/pdf" });
         this.pdfUrl = window.URL.createObjectURL(blob);
-        window.open(this.pdfUrl);
       },
       error: (e) => {
         console.error(e);
         this.executaSpinner = false;
       },
       complete: () => {
+        this.exibirModal = true;
         this.modelPdf = new ModelPDF();
         this.conteudo = "";
         this.executaSpinner = false;

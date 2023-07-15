@@ -10,6 +10,7 @@ import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
 export class TxtComponent {
   selectedFile!: any;
   pdfUrl!: string;
+  exibirModal: boolean = false;
 
   mensagemErro: string = "";
 
@@ -38,7 +39,6 @@ export class TxtComponent {
         next: (res: any) => {
           const blob = new Blob([res], { type: "application/pdf" });
           this.pdfUrl = window.URL.createObjectURL(blob);
-          window.open(this.pdfUrl);
         },
         error: (e) => {
           console.error(e);
@@ -49,6 +49,7 @@ export class TxtComponent {
           this.selectedFile = null;
         },
         complete: () => {
+          this.exibirModal = true;
           this.selectedFile = null;
           this.mensagemErro = "";
           this.executaSpinner = false;

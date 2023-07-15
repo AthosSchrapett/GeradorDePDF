@@ -11,7 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   exports: [
     TxtComponent
