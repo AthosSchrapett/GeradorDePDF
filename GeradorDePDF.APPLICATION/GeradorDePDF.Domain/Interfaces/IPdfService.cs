@@ -7,4 +7,5 @@ public interface IPdfService
 {
     public MemoryStream GeraPdf(IFormFile file);
     public MemoryStream GeraPdf(ModelPdf model);
+    public MemoryStream SplitPdf(IFormFile file, IEnumerable<string> ranges);
 }

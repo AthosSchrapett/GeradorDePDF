@@ -4,6 +4,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
+using System.IO.Compression;
 
 namespace GeradorDePDF.Application.Helpers;
 
@@ -44,12 +45,34 @@ public class ArquivoHelper
     public static MemoryStream GeraArquivoDownload(string caminho)
     {
         FileStream origemStream = File.Open(caminho, FileMode.Open);
-        MemoryStream memoryStream = new MemoryStream();
+        MemoryStream memoryStream = new();
         origemStream.CopyTo(memoryStream);
 
         memoryStream.Seek(0, SeekOrigin.Begin);
 
         origemStream.Close();
+
+        return memoryStream;
+    }
+
+    public static MemoryStream GeraArquivoZip(List<string> caminhosPdf)
+    {
+        MemoryStream memoryStream = new();
+
+        using (ZipArchive zip = new(memoryStream, ZipArchiveMode.Create, true))
+        {
+            foreach (string caminho in caminhosPdf)
+            {
+                string nomeArquivo = Path.GetFileName(caminho);
+                ZipArchiveEntry entry = zip.CreateEntry(nomeArquivo);
+
+                using Stream entryStream = entry.Open();
+                using FileStream fileStream = File.OpenRead(caminho);
+                fileStream.CopyTo(entryStream);
+            }
+        }
+
+        memoryStream.Seek(0, SeekOrigin.Begin);
 
         return memoryStream;
     }

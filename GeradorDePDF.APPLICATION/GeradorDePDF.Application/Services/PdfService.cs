@@ -35,4 +35,19 @@ public class PdfService : IPdfService
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
+
+    public MemoryStream SplitPdf(IFormFile file, IEnumerable<string> ranges)
+    {
+        if (Path.GetExtension(file.FileName) != ".pdf")
+            throw new FormatoArquivoIncorretoException();
+
+        List<string>? caminhos = new();
+
+        foreach (string range in ranges)
+        {
+            caminhos.Add(PdfManipulatorHelper.SeparaPdf(file, range));
+        }
+
+        return ArquivoHelper.GeraArquivoZip(caminhos);
+    }
 }
