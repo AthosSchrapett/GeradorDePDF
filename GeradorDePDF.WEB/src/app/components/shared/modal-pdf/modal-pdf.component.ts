@@ -1,5 +1,5 @@
 import { ModalPdfService } from './modal-pdf.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 
 @Component({

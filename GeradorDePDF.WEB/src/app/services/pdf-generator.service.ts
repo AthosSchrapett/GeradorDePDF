@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { ModelPDF } from '../models/modelPdf.model';
+import { PdfSplitRequest } from '../models/pdf-split-Request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,10 @@ export class PdfGeneratorService {
   postFormulario(modelPdf: ModelPDF): Observable<any> {
     let url: string = `${this.endpoint}/formulario`
     return this.httpClient.post(url, modelPdf, { responseType: 'blob' }).pipe(retry(1));
+  }
+
+  postSplitPdf(splitPdfRequestModel: PdfSplitRequest): Observable<any> {
+    let url: string = `${this.endpoint}/split-pdf`
+    return this.httpClient.post(url, splitPdfRequestModel, { responseType: 'blob' }).pipe(retry(1));
   }
 }

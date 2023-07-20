@@ -1,8 +1,8 @@
-import { PdfGeneratorService } from './../../services/pdf-generator.service';
+import { PdfGeneratorService } from './../../../services/pdf-generator.service';
 import { Component, Input } from '@angular/core';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { ModelPDF } from 'src/app/models/modelPdf.model';
-import { ModalPdfService } from 'src/app/shared/modal-pdf/modal-pdf.service';
+import { ModalPdfService } from 'src/app/components/shared/modal-pdf/modal-pdf.service';
 
 @Component({
   selector: 'app-formulario',

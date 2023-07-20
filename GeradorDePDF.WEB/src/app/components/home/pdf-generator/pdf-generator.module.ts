@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { FormularioModule } from '../formulario/formulario.module';
 import { TxtModule } from '../txt/txt.module';
 import { DownloadModule } from '../download/download.module';
+import { PdfSplitModule } from '../pdf-split/pdf-split.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DownloadModule } from '../download/download.module';
     FormularioModule,
     TxtModule,
     DownloadModule,
+    PdfSplitModule,
     SharedModule
   ],
   exports: [
