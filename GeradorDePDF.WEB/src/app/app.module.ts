@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PdfGeneratorModule } from './components/home/pdf-generator/pdf-generator.module';
+import { SideNavModule } from './components/side-nav/side-nav.module';
 
 @NgModule({
   declarations: [
@@ -11,8 +9,7 @@ import { PdfGeneratorModule } from './components/home/pdf-generator/pdf-generato
   ],
   imports: [
     BrowserModule,
-    PdfGeneratorModule,
-    AppRoutingModule,
+    SideNavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
