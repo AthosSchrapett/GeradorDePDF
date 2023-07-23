@@ -1,8 +1,8 @@
 <mat-sidenav-container class="container">
   <mat-sidenav #sidenav mode="side" opened="true" [ngClass]="{'collapsed-sidenav': !isMenuOpen, 'sidenav': isMenuOpen}">
-    <mat-nav-list [ngClass]="{'list-logo-dark': isDark, 'list-logo-light': !isDark }" *ngIf="isMenuOpen">
-      <img class="logo" src="../../../assets/logo.png" />
-      <hr style="margin-top: -8px;">
+    <mat-nav-list [ngClass]="{'list-logo-dark': isDark, 'list-logo-light': !isDark }">
+      <img *ngIf="isMenuOpen" class="logo" src="../../../assets/logo.png" />
+      <img *ngIf="!isMenuOpen" class="logo-min" src="../../../assets/logo-min.png" />
     </mat-nav-list>
 
     <mat-nav-list [ngClass]="{'collapsed': !isMenuOpen}">

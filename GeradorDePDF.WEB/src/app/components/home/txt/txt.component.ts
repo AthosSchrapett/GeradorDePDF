@@ -1,8 +1,9 @@
-import { ModalPdfService } from './../../shared/modal-pdf/modal-pdf.service';
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription, take } from 'rxjs';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
+import { ModalPdfComponent } from '../../shared/modal-pdf/modal-pdf.component';
 
 @Component({
   selector: 'app-txt',
@@ -26,7 +27,7 @@ export class TxtComponent {
 
   constructor(
     private pdfGeneratorService: PdfGeneratorService,
-    private modalPdfService: ModalPdfService
+    private _dialog: MatDialog
   ) { }
 
   onFileSelected(input: HTMLInputElement) {
@@ -56,12 +57,10 @@ export class TxtComponent {
           this.executaSpinner = false;
           this.selectedFile = null;
           this.fileName = "";
-          this.modalPdfService.atualizarExibirModal(false);
         },
         complete: () => {
 
-          this.modalPdfService.atualizarExibirModal(true);
-          this.modalPdfService.atualizarPdfUrl(this.pdfUrl);
+          this.openConfirmationDialog();
 
           this.selectedFile = null;
           this.mensagemErro = "";
@@ -77,5 +76,13 @@ export class TxtComponent {
         }
       });
     }
+  }
+
+  openConfirmationDialog(): void {
+    this._dialog.open(ModalPdfComponent, {
+      data: {
+        urlPdf: this.pdfUrl,
+      }
+    });
   }
 }

@@ -1,9 +1,10 @@
 import { PdfGeneratorService } from './../../../services/pdf-generator.service';
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { ModelPDF } from 'src/app/models/modelPdf.model';
-import { ModalPdfService } from 'src/app/components/shared/modal-pdf/modal-pdf.service';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalPdfComponent } from '../../shared/modal-pdf/modal-pdf.component';
 
 @Component({
   selector: 'app-formulario',
@@ -14,12 +15,11 @@ export class FormularioComponent implements OnChanges {
 
   constructor(
     private pdfGeneratorService: PdfGeneratorService,
-    private modalPdfService: ModalPdfService,
-    private formBuilder: FormBuilder
+    private _dialog: MatDialog
   ) { }
 
   ngOnChanges(): void {
-    if(this.tipoInclusao !== TipoInclusao.Formulario){
+    if (this.tipoInclusao !== TipoInclusao.Formulario) {
       this.formulario.get('titulo')?.disable();
       this.formulario.get('conteudo')?.disable();
     }
@@ -67,16 +67,21 @@ export class FormularioComponent implements OnChanges {
       error: (e) => {
         console.error(e);
         this.executaSpinner = false;
-        this.modalPdfService.atualizarExibirModal(false);
       },
       complete: () => {
-        this.modalPdfService.atualizarExibirModal(true);
-        this.modalPdfService.atualizarPdfUrl(this.pdfUrl);
-
+        this.openConfirmationDialog();
         this.formulario.reset();
         this.conteudo = "";
         this.executaSpinner = false;
       }
     })
+  }
+
+  openConfirmationDialog(): void {
+    this._dialog.open(ModalPdfComponent, {
+      data: {
+        urlPdf: this.pdfUrl,
+      }
+    });
   }
 }

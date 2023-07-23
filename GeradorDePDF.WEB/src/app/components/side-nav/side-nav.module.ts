@@ -28,6 +28,7 @@ import { SharedModule } from '../shared/shared.module';
     MatToolbarModule,
     MatSlideToggleModule,
     MatListModule,
+    SharedModule,
     RouterModule.forRoot(AppRoutes),
   ]
 })
