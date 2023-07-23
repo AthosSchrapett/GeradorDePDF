@@ -1,13 +1,16 @@
 <app-spinner *ngIf="executaSpinner"></app-spinner>
 
-<div class="input-group">
-  <input [disabled]="tipoInclusao !== TipoInclusao.Txt" class="form-control" type="file" #fileInput (change)="onFileSelected(fileInput)" accept=".txt">
-  <button [disabled]="tipoInclusao !== TipoInclusao.Txt || !selectedFile" class="btn btn-outline-secondary" type="button" (click)="onUpload()">Enviar</button>
-</div>
-
-<div *ngIf="mensagemErro != ''" class="container-fluid mt-3">
-  <div class="alert alert-danger alert-dismissible" role="alert">
-    <div>{{ mensagemErro }}</div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container">
+  <div class="file-upload" [ngClass]="{ 'disabled': tipoInclusao !== TipoInclusao.Txt }">
+    <input type="file" [disabled]="tipoInclusao !== TipoInclusao.Txt" id="file-input"
+      (change)="onFileSelected(fileInput)" #fileInput accept=".txt" hidden>
+    <label for="file-input" class="file-input-label">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <span>{{ fileName || 'Escolha o arquivo...' }}</span>
+    </label>
+    <button style="margin-left: 10px; padding: 21px;" [disabled]="tipoInclusao !== TipoInclusao.Txt || !fileName"
+      mat-raised-button color="primary" (click)="onUpload()">
+      ENVIAR
+    </button>
   </div>
 </div>

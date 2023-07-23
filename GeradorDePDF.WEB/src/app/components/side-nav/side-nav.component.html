@@ -1,1 +1,26 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav mode="side" opened="true" [ngClass]="{'collapsed-sidenav': !isMenuOpen, 'sidenav': isMenuOpen}">
+    <mat-nav-list [ngClass]="{'list-logo-dark': isDark, 'list-logo-light': !isDark }" *ngIf="isMenuOpen">
+      <img class="logo" src="../../../assets/logo.png" />
+      <hr style="margin-top: -8px;">
+    </mat-nav-list>
+
+    <mat-nav-list [ngClass]="{'collapsed': !isMenuOpen}">
+      <a mat-list-item routerLink="/">
+        <mat-icon mat-list-icon class="mat-24">home</mat-icon>
+        <span mat-line class="mat-list-item-content">Home</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content [ngClass]="{'collapsed-toolbar': !isMenuOpen, 'toolbar': isMenuOpen}">
+    <mat-toolbar color="warn">
+      <button mat-icon-button (click)="toggleMenu()" [@rotateAnimation]="isMenuOpen ? 'open' : 'closed'">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-slide-toggle class="toogle-mode" color="primary" (change)="isDark = !isDark"><span>{{ mode }}</span></mat-slide-toggle>
+    </mat-toolbar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,23 +1,35 @@
 import { PdfGeneratorService } from './../../../services/pdf-generator.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { ModelPDF } from 'src/app/models/modelPdf.model';
 import { ModalPdfService } from 'src/app/components/shared/modal-pdf/modal-pdf.service';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css']
 })
-export class FormularioComponent {
+export class FormularioComponent implements OnChanges {
 
   constructor(
     private pdfGeneratorService: PdfGeneratorService,
-    private modalPdfService: ModalPdfService
+    private modalPdfService: ModalPdfService,
+    private formBuilder: FormBuilder
   ) { }
 
+  ngOnChanges(): void {
+    if(this.tipoInclusao !== TipoInclusao.Formulario){
+      this.formulario.get('titulo')?.disable();
+      this.formulario.get('conteudo')?.disable();
+    }
+    else {
+      this.formulario.get('titulo')?.enable();
+      this.formulario.get('conteudo')?.enable();
+    }
+  }
+
   pdfUrl!: string;
-  modelPdf: ModelPDF = new ModelPDF();
   conteudo: string = "";
   exibirModal: boolean = false;
 
@@ -26,7 +38,12 @@ export class FormularioComponent {
   @Input() tipoInclusao!: TipoInclusao;
   TipoInclusao = TipoInclusao;
 
-  ajustaTamanhoTextArea(element: any): void {
+  formulario: FormGroup = new FormGroup({
+    titulo: new FormControl("", Validators.required),
+    conteudo: new FormControl("", Validators.required)
+  });
+
+  ajustaTamanhoTextArea(element: HTMLTextAreaElement): void {
     element.style.height = "auto";
     element.style.height = element.scrollHeight + "px";
   }
@@ -35,11 +52,14 @@ export class FormularioComponent {
 
     this.executaSpinner = true;
 
-    this.conteudo.split('\n').forEach(
-      element => this.modelPdf.conteudo.push(element)
+    const modelPdf: ModelPDF = new ModelPDF(
+      this.formulario.get('titulo')?.value,
+      this.formulario.get('conteudo')?.value.split('\n')
     );
 
-    this.pdfGeneratorService.postFormulario(this.modelPdf).subscribe({
+    console.log(modelPdf);
+
+    this.pdfGeneratorService.postFormulario(modelPdf).subscribe({
       next: (res: any) => {
         const blob = new Blob([res], { type: "application/pdf" });
         this.pdfUrl = window.URL.createObjectURL(blob);
@@ -53,7 +73,7 @@ export class FormularioComponent {
         this.modalPdfService.atualizarExibirModal(true);
         this.modalPdfService.atualizarPdfUrl(this.pdfUrl);
 
-        this.modelPdf = new ModelPDF();
+        this.formulario.reset();
         this.conteudo = "";
         this.executaSpinner = false;
       }

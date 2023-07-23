@@ -2,29 +2,25 @@
 
 <hr>
 
-<div class="input-group mb-3">
-  <span class="input-group-text">Título</span>
-  <input [disabled]="tipoInclusao !== TipoInclusao.Formulario" class="form-control" type="text" [(ngModel)]="modelPdf.titulo">
-</div>
-<div class="input-group">
-  <span class="input-group-text">Conteúdo</span>
-  <textarea [disabled]="tipoInclusao !== TipoInclusao.Formulario" class="form-control" aria-label="With textarea" (input)="ajustaTamanhoTextArea(element)" #element
-    [(ngModel)]="conteudo"></textarea>
-</div>
+<form [formGroup]="formulario" (ngSubmit)="submit()">
+  <div class="form-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Titulo</mat-label>
+      <input class="form-control" type="text" formControlName="titulo" matInput placeholder="Titulo">
+    </mat-form-field>
+  </div>
 
-<div class="d-flex justify-content-end mt-3">
-  <button
-    [disabled]="
-      tipoInclusao !== TipoInclusao.Formulario ||
-      modelPdf.titulo === '' ||
-      conteudo === ''
-    "
-    class="btn btn-outline-secondary"
-    type="button"
-    id="button-addon2"
-    (click)="submit()"
-  >
-    Enviar
-  </button>
-</div>
+  <div class="form-container">
+    <mat-form-field class="example-full-width">
+      <mat-label>Conteúdo</mat-label>
+      <textarea formControlName="conteudo" matInput class="form-control" aria-label="With textarea"
+        (input)="ajustaTamanhoTextArea(element)" #element></textarea>
+    </mat-form-field>
+  </div>
 
+  <div class="submit-button">
+    <button [disabled]="formulario.invalid || this.tipoInclusao !== TipoInclusao.Formulario" type="submit"
+      mat-raised-button color="primary">ENVIAR</button>
+  </div>
+
+</form>

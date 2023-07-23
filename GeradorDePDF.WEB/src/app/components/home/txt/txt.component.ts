@@ -19,6 +19,8 @@ export class TxtComponent {
 
   executaSpinner: boolean = false;
 
+  fileName!: string;
+
   @Input() tipoInclusao!: TipoInclusao;
   TipoInclusao = TipoInclusao;
 
@@ -29,6 +31,7 @@ export class TxtComponent {
 
   onFileSelected(input: HTMLInputElement) {
     this.selectedFile = input.files?.[0];
+    this.fileName = this.selectedFile ? this.selectedFile.name : null;
   }
 
   onUpload() {
@@ -52,6 +55,7 @@ export class TxtComponent {
           }
           this.executaSpinner = false;
           this.selectedFile = null;
+          this.fileName = "";
           this.modalPdfService.atualizarExibirModal(false);
         },
         complete: () => {
@@ -62,6 +66,7 @@ export class TxtComponent {
           this.selectedFile = null;
           this.mensagemErro = "";
           this.executaSpinner = false;
+          this.fileName = "";
 
           const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
           if (fileInput) {

@@ -12,6 +12,10 @@ import { RouterModule } from '@angular/router';
 import { PdfGeneratorRoutes } from './pdf-generator.routes';
 import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
 
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 @NgModule({
   declarations: [
     PdfGeneratorComponent
@@ -25,6 +29,9 @@ import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
     DownloadModule,
     PdfSplitModule,
     SharedModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
     RouterModule.forChild(PdfGeneratorRoutes)
   ],
   providers: [
