@@ -19,7 +19,7 @@ namespace GeradorDePDF.API.Controllers
 
         [HttpPost("split-pdf")]
         public IActionResult PostPdfSplit([FromForm] PdfSplitRequestModel model)
-            => File(_pdfService.SplitPdf(model.Files[0], model.Ranges), "application/zip", "arquivo.zip");
+            => File(_pdfService.SplitPdf(model), "application/zip", "arquivo.zip");
 
         [HttpPost("formulario")]
         public IActionResult PostFormulario([FromBody] ModelPdf model) 

@@ -47,10 +47,10 @@
 }
 
 .file-upload.disabled {
-  opacity: 0.8; /* Reduz a opacidade para 80% */
-  cursor: not-allowed; /* Altera o ponteiro do mouse para "not allowed" */
+  opacity: 0.8;
+  cursor: not-allowed;
 }
 
 .file-upload.disabled .file-input-label {
-  cursor: not-allowed; /* Altera o ponteiro do mouse para "not allowed" */
+  cursor: not-allowed;
 }

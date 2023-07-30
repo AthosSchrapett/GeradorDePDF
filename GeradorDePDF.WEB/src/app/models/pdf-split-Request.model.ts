@@ -1,4 +1,4 @@
 export class PdfSplitRequest {
-  formData: FormData = new FormData();
-  conteudo: Array<string> = new Array<string>();
+  files: FormData = new FormData();
+  ranges: Array<string> = new Array<string>();
 }

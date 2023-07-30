@@ -3,6 +3,7 @@ using GeradorDePDF.Domain.Models;
 using GeradorDePDF.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using GeradorDePDF.Application.Helpers;
+using GeradorDePDF.Domain.Models.Requests;
 
 namespace GeradorDePDF.Application.Services;
 
@@ -36,16 +37,16 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream SplitPdf(IFormFile file, IEnumerable<string> ranges)
+    public MemoryStream SplitPdf(PdfSplitRequestModel model)
     {
-        if (Path.GetExtension(file.FileName) != ".pdf")
+        if (Path.GetExtension(model.Files[0].FileName) != ".pdf")
             throw new FormatoArquivoIncorretoException();
 
         List<string>? caminhos = new();
 
-        foreach (string range in ranges)
+        foreach (string range in model.Ranges)
         {
-            caminhos.Add(PdfManipulatorHelper.SeparaPdf(file, range));
+            caminhos.Add(PdfManipulatorHelper.SeparaPdf(model.Files[0], range));
         }
 
         return ArquivoHelper.GeraArquivoZip(caminhos);

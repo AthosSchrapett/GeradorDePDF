@@ -27,6 +27,16 @@ export class PdfGeneratorService {
 
   postSplitPdf(splitPdfRequestModel: PdfSplitRequest): Observable<any> {
     let url: string = `${this.endpoint}/split-pdf`
-    return this.httpClient.post(url, splitPdfRequestModel, { responseType: 'blob' }).pipe(retry(1));
+
+    const formData = new FormData();
+    for (const file of splitPdfRequestModel.files.getAll('files')) {
+      formData.append('files', file);
+    }
+
+    for (const range of splitPdfRequestModel.ranges) {
+      formData.append('ranges', range);
+    }
+
+    return this.httpClient.post(url, formData, { responseType: 'blob' }).pipe(retry(1));
   }
 }

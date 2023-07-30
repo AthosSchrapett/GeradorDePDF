@@ -6,9 +6,13 @@
     </mat-nav-list>
 
     <mat-nav-list [ngClass]="{'collapsed': !isMenuOpen}">
-      <a mat-list-item routerLink="/">
-        <mat-icon mat-list-icon class="mat-24">home</mat-icon>
-        <span mat-line class="mat-list-item-content">Home</span>
+      <a mat-list-item routerLink="/pdf-generator">
+        <mat-icon mat-list-icon class="mat-24">picture_as_pdf</mat-icon>
+        <span mat-line class="mat-list-item-content">Geração</span>
+      </a>
+      <a mat-list-item routerLink="/pdf-split">
+        <mat-icon mat-list-icon class="mat-24">splitscreen_right</mat-icon>
+        <span mat-line class="mat-list-item-content">Separar PDF</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

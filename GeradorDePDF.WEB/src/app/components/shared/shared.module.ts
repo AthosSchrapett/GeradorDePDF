@@ -9,13 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     SpinnerComponent,
-    ModalPdfComponent
+    ModalPdfComponent,
   ],
   imports: [
     CommonModule,
     MatDialogModule,
     MatButtonModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
   ],
   exports: [
     SpinnerComponent,

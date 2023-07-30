@@ -7,11 +7,11 @@ export const AppRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**',
-    redirectTo: 'pdf-generator',
+    path: 'pdf-generator',
+    loadChildren: () => import('./components/home/pages/pdf-generator/pdf-generator.module').then(x => x.PdfGeneratorModule)
   },
   {
-    path: 'pdf-generator',
-    loadChildren: () => import('../app/components/home/pdf-generator/pdf-generator.module').then(x => x.PdfGeneratorModule)
+    path: 'pdf-split',
+    loadChildren: () => import('./components/home/pages/pdf-separator/pdf-separator.module').then(x => x.PdfSeparatorModule)
   }
 ];
