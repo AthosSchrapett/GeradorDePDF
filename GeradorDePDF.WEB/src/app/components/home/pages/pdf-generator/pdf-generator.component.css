@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.topo {
+  background-color: #fc6b6b;
+}
+
+.topo span {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.radio-label {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.imagem {
+  width: 22%;
+}
+

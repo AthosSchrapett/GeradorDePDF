@@ -1,0 +1,10 @@
+<mat-form-field>
+  <mat-label>Select</mat-label>
+  <mat-select [(ngModel)]="tipoInclusao">
+    <mat-option [value]="TipoInclusao.Txt">TXT</mat-option>
+    <mat-option [value]="TipoInclusao.Formulario">Formulario</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<app-txt [tipoInclusao]="tipoInclusao"></app-txt>
+<app-formulario [tipoInclusao]="tipoInclusao"></app-formulario>
