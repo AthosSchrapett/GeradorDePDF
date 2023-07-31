@@ -9,4 +9,5 @@ public interface IPdfService
     public MemoryStream GeraPdf(IFormFile file);
     public MemoryStream GeraPdf(ModelPdf model);
     public MemoryStream SplitPdf(PdfSplitRequestModel model);
+    public MemoryStream JoinPdf(List<IFormFile> files);
 }

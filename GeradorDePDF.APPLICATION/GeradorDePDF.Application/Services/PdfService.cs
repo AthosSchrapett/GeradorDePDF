@@ -37,6 +37,16 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
+    public MemoryStream JoinPdf(List<IFormFile> files)
+    {
+        if (files.Any(x => Path.GetExtension(x.FileName) != ".pdf"))
+            throw new FormatoArquivoIncorretoException();
+
+        string caminho = PdfManipulatorHelper.JuntarPdf(files);
+
+        return ArquivoHelper.GeraArquivoDownload(caminho);
+    }
+
     public MemoryStream SplitPdf(PdfSplitRequestModel model)
     {
         if (Path.GetExtension(model.Files[0].FileName) != ".pdf")

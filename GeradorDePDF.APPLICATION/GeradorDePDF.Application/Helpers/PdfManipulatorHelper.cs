@@ -20,4 +20,25 @@ public class PdfManipulatorHelper
 
         return caminho;
     }
+
+    public static string JuntarPdf(List<IFormFile> files)
+    {
+        string caminho = Path.Combine(Path.GetTempPath(), $"temporary.pdf");
+
+        PdfDocument pdf = new(new PdfWriter(caminho));
+        PdfMerger merger = new(pdf);
+
+        foreach (IFormFile file in files)
+        {
+            PdfDocument pdfMerge = new(new PdfReader(file.OpenReadStream()));
+
+            merger.Merge(pdfMerge, 1, pdfMerge.GetNumberOfPages());
+
+            pdfMerge.Close();
+        }
+
+        pdf.Close();
+
+        return caminho;
+    }
 }
