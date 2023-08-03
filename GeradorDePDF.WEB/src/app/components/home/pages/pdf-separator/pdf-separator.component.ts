@@ -41,14 +41,14 @@ export class PdfSeparatorComponent {
       const reader = new FileReader();
       reader.onload = () => {
         const pdfUrl = reader.result;
-        this.generatePdfPreview(pdfUrl as string);
+        this.generatePdfPreview(pdfUrl as string, 200, 300);
       };
       reader.readAsDataURL(file);
     }
   }
 
-  async generatePdfPreview(pdfUrl: string) {
-    const canvasSize = { width: 200, height: 300 };
+  async generatePdfPreview(pdfUrl: string, width: number, height: number) {
+    const canvasSize = { width: width, height: height };
 
     const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
     const totalPages = pdf.numPages;
@@ -167,6 +167,20 @@ export class PdfSeparatorComponent {
             this.executaSpinner = false;
           }
         });
-      }
     }
+  }
+
+  currentImage!: string | null;
+  showImageInLightbox(imageSrc: string): void {
+    this.currentImage = imageSrc;
+    const lightbox: any = document.getElementById('lightbox');
+    lightbox.style.display = 'flex';
+  }
+
+  hideLightbox(): void {
+    this.currentImage = null;
+    const lightbox: any = document.getElementById('lightbox');
+    lightbox.style.display = 'none';
+  }
+
 }

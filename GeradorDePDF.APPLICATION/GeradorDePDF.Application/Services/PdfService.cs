@@ -54,9 +54,12 @@ public class PdfService : IPdfService
 
         List<string>? caminhos = new();
 
+        int contador = 1;
+
         foreach (string range in model.Ranges)
         {
-            caminhos.Add(PdfManipulatorHelper.SeparaPdf(model.Files[0], range));
+            caminhos.Add(PdfManipulatorHelper.SeparaPdf(model.Files[0],$"arquivo_{contador}", range));
+            contador++;
         }
 
         return ArquivoHelper.GeraArquivoZip(caminhos);

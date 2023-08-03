@@ -9,29 +9,31 @@
         {{ fileName || 'Escolha o arquivo...' }}
       </span>
     </label>
-    <button style="margin-left: 10px; padding: 21px;"
-      mat-raised-button color="primary" (click)="submit()">
-      ENVIAR
-    </button>
   </div>
+</div>
+
+<div style="text-align: right;" *ngIf="areas.length > 0">
+  <button mat-raised-button color="primary" (click)="submit()">
+    SALVAR
+  </button>
 </div>
 
 <div *ngFor="let area of areas">
   <div class="pdf-container" #pdfPreview>
-    <div
-      [id]="area.id"
-      class="drop-area"
-      cdkDropList
-      [cdkDropListData]="area.pages"
-      [cdkDropListConnectedTo]="getConnectedList(area.id)"
-      (cdkDropListDropped)="drop($event)"
-    >
+    <div [id]="area.id" class="drop-area" cdkDropList [cdkDropListData]="area.pages"
+      [cdkDropListConnectedTo]="getConnectedList(area.id)" (cdkDropListDropped)="drop($event)">
       <ng-container *ngFor="let page of area.pages;">
         <div class="page-container" cdkDrag>
-          <img [src]="page.newPage" alt="Page {{ page.number + 1 }}">
+          <img [src]="page.newPage" alt="Page {{ page.number + 1 }}" class="clickable-image"
+            (click)="showImageInLightbox(page.newPage)">
           <span class="page-number">Pagina {{ page.number + 1 }}</span>
         </div>
       </ng-container>
     </div>
   </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" (click)="hideLightbox()">
+  <img [src]="currentImage" alt="Ampliada">
 </div>

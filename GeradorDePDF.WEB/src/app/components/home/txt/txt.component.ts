@@ -30,7 +30,7 @@ export class TxtComponent {
     private _dialog: MatDialog
   ) { }
 
-  onFileSelected(input: HTMLInputElement) {
+  onFileSelected(input: any): void {
     this.selectedFile = input.files?.[0];
     this.fileName = this.selectedFile ? this.selectedFile.name : null;
   }

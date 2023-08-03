@@ -1,5 +1,7 @@
 <app-spinner *ngIf="executaSpinner"></app-spinner>
 
+<!-- <app-input-file (submit)="onUpload()"></app-input-file> -->
+
 <div class="container">
   <div class="file-upload" [ngClass]="{ 'disabled': tipoInclusao !== TipoInclusao.Txt }">
     <input type="file" [disabled]="tipoInclusao !== TipoInclusao.Txt" id="file-input"

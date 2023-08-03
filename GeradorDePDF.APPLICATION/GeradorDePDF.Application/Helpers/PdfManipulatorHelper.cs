@@ -7,9 +7,9 @@ namespace GeradorDePDF.Application.Helpers;
 
 public class PdfManipulatorHelper
 {
-    public static string SeparaPdf(IFormFile file, string range)
+    public static string SeparaPdf(IFormFile file, string nomeArquivo, string range)
     {
-        string caminho = Path.Combine(Path.GetTempPath(), $"temporary-{Guid.NewGuid()}.pdf");
+        string caminho = Path.Combine(Path.GetTempPath(), $"{nomeArquivo}.pdf");
 
         Stream stream = file.OpenReadStream();
         PdfDocument pdf = new(new PdfReader(stream));

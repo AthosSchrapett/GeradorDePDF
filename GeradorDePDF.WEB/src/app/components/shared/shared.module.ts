@@ -5,11 +5,13 @@ import { ModalPdfComponent } from './modal-pdf/modal-pdf.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatButtonModule } from '@angular/material/button';
+import { InputFileComponent } from './input-file/input-file.component';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
     ModalPdfComponent,
+    InputFileComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
   exports: [
     SpinnerComponent,
     ModalPdfComponent,
+    InputFileComponent
   ]
 })
 export class SharedModule { }
