@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener } from '@angular/core';
+import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
 import { rotateAnimation } from 'src/app/animations/animations';
 
 @Component({
@@ -7,7 +7,12 @@ import { rotateAnimation } from 'src/app/animations/animations';
   styleUrls: ['./side-nav.component.css'],
   animations: [rotateAnimation]
 })
-export class SideNavComponent {
+export class SideNavComponent implements OnInit {
+
+  ngOnInit(): void {
+    this.adjustMenuState(window.innerWidth);
+  }
+
   isMenuOpen: boolean = true;
   mode: string = "Dark Mode";
 
@@ -20,6 +25,10 @@ export class SideNavComponent {
 
   isDark: boolean = true;
 
+  private adjustMenuState(windowWidth: number): void {
+    this.isMenuOpen = windowWidth < 656 ? false : true;
+  }
+
   @HostBinding('class')
   get themeMode() {
     this.mode = this.isDark ? "Dark Mode" : "Light Mode";
@@ -28,9 +37,7 @@ export class SideNavComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if (!this.clickedToogle) {
-      const width = event.target.innerWidth;
-      this.isMenuOpen = width < 656 ? false : true;
-    }
+    const width = event.target.innerWidth;
+    this.isMenuOpen = width < 656 ? false : true;
   }
 }
