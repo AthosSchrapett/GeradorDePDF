@@ -12,12 +12,12 @@
   </div>
 </div>
 
-<div>
+<!-- <div>
   <h1>Definição de Paginas</h1>
   <div *ngFor="let pdf of pdfPages; let i = index">
     {{ i }}
   </div>
-</div>
+</div> -->
 
 <div style="text-align: right;" *ngIf="areas.length > 0">
   <button mat-raised-button color="primary" (click)="submit()">
@@ -38,9 +38,4 @@
       </ng-container>
     </div>
   </div>
-</div>
-
-<!-- Lightbox -->
-<div id="lightbox" (click)="hideLightbox()">
-  <img [src]="currentImage" alt="Ampliada">
 </div>

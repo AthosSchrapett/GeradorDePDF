@@ -4,6 +4,7 @@ import { Subscription, take } from 'rxjs';
 import { TipoInclusao } from 'src/app/enums/tipo-inclusao.enum';
 import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
 import { ModalPdfComponent } from '../../shared/modal-pdf/modal-pdf.component';
+import { TipoModal } from 'src/app/enums/tipo-modal.enum';
 
 @Component({
   selector: 'app-txt',
@@ -81,7 +82,7 @@ export class TxtComponent {
   openConfirmationDialog(): void {
     this._dialog.open(ModalPdfComponent, {
       data: {
-        urlPdf: this.pdfUrl,
+        urlPdf: this.pdfUrl
       }
     });
   }

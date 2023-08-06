@@ -4,8 +4,12 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as pdfjsLib from 'pdfjs-dist';
 import { take } from 'rxjs';
+import { ModalImageComponent } from 'src/app/components/shared/modal-image/modal-image.component';
+import { ModalPdfComponent } from 'src/app/components/shared/modal-pdf/modal-pdf.component';
+import { TipoModal } from 'src/app/enums/tipo-modal.enum';
 import { PdfSplitRequest } from 'src/app/models/pdf-split-Request.model';
 import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
 
@@ -30,6 +34,7 @@ export class PdfSeparatorComponent {
 
   constructor(
     private pdfGeneratorService: PdfGeneratorService,
+    private _dialog: MatDialog
   ) { }
 
   onFileSelected(input: HTMLInputElement) {
@@ -38,6 +43,7 @@ export class PdfSeparatorComponent {
     this.fileName = this.selectedFile ? this.selectedFile.name : null;
 
     if (file) {
+      this.executaSpinner = true;
       const reader = new FileReader();
       reader.onload = () => {
         const pdfUrl = reader.result;
@@ -79,6 +85,8 @@ export class PdfSeparatorComponent {
     }
 
     this.createArea();
+
+    this.executaSpinner = false;
   }
 
   createArea(): void {
@@ -88,9 +96,7 @@ export class PdfSeparatorComponent {
   }
 
   getConnectedList(id: string): string[] {
-
     let ids_areas: string[] = [];
-
     this.areas.forEach(element => {
       if (element.id !== id) {
         ids_areas.push(element.id)
@@ -171,15 +177,10 @@ export class PdfSeparatorComponent {
 
   currentImage!: string | null;
   showImageInLightbox(imageSrc: string): void {
-    this.currentImage = imageSrc;
-    const lightbox: any = document.getElementById('lightbox');
-    lightbox.style.display = 'flex';
+    this._dialog.open(ModalImageComponent, {
+      data: {
+        image: imageSrc
+      }
+    });
   }
-
-  hideLightbox(): void {
-    this.currentImage = null;
-    const lightbox: any = document.getElementById('lightbox');
-    lightbox.style.display = 'none';
-  }
-
 }

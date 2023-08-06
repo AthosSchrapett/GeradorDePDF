@@ -117,26 +117,6 @@
   cursor: not-allowed;
 }
 
-/* Lightbox Styling */
-#lightbox {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-}
-
-#lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  cursor: pointer;
-}
-
-/* Additional Styles */
 .clickable-image {
   cursor: pointer;
 }

@@ -6,12 +6,14 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatButtonModule } from '@angular/material/button';
 import { InputFileComponent } from './input-file/input-file.component';
+import { ModalImageComponent } from './modal-image/modal-image.component';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
     ModalPdfComponent,
     InputFileComponent,
+    ModalImageComponent,
   ],
   imports: [
     CommonModule,
