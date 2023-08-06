@@ -12,6 +12,13 @@
   </div>
 </div>
 
+<div>
+  <h1>Definição de Paginas</h1>
+  <div *ngFor="let pdf of pdfPages; let i = index">
+    {{ i }}
+  </div>
+</div>
+
 <div style="text-align: right;" *ngIf="areas.length > 0">
   <button mat-raised-button color="primary" (click)="submit()">
     SALVAR
@@ -24,7 +31,7 @@
       [cdkDropListConnectedTo]="getConnectedList(area.id)" (cdkDropListDropped)="drop($event)">
       <ng-container *ngFor="let page of area.pages;">
         <div class="page-container" cdkDrag>
-          <img [src]="page.newPage" alt="Page {{ page.number + 1 }}" class="clickable-image"
+          <img width="200" height="300" [src]="page.newPage" alt="Page {{ page.number + 1 }}" class="clickable-image"
             (click)="showImageInLightbox(page.newPage)">
           <span class="page-number">Pagina {{ page.number + 1 }}</span>
         </div>

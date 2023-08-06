@@ -42,35 +42,6 @@ public class SwaggerFileOperationFilter : IOperationFilter
                         }
                     };
             }
-            else if (fileParam.ParameterType == typeof(List<PdfRequestModel>))
-            {
-                var properties = fileParam.ParameterType.GetProperties();
-                foreach (var property in properties)
-                {
-                    if (property.PropertyType == typeof(IFormFile))
-                    {
-                        operation.RequestBody.Content[fileUploadMime].Schema.Properties[fileParam.Name].Properties[property.Name] =
-                            new OpenApiSchema()
-                            {
-                                Type = "string",
-                                Format = "binary"
-                            };
-                    }
-                    else if (property.PropertyType == typeof(List<IFormFile>))
-                    {
-                        operation.RequestBody.Content[fileUploadMime].Schema.Properties[fileParam.Name].Properties[property.Name] =
-                            new OpenApiSchema()
-                            {
-                                Type = "array",
-                                Items = new OpenApiSchema()
-                                {
-                                    Type = "string",
-                                    Format = "binary"
-                                }
-                            };
-                    }
-                }
-            }
         }
     }
 }

@@ -41,7 +41,7 @@ export class PdfSeparatorComponent {
       const reader = new FileReader();
       reader.onload = () => {
         const pdfUrl = reader.result;
-        this.generatePdfPreview(pdfUrl as string, 200, 300);
+        this.generatePdfPreview(pdfUrl as string, 700, 800);
       };
       reader.readAsDataURL(file);
     }
