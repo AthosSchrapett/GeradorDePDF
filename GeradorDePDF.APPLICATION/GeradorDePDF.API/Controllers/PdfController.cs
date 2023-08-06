@@ -25,10 +25,6 @@ namespace GeradorDePDF.API.Controllers
         public IActionResult PostPdfJoin([FromForm] List<PdfRequestModel> models)
             => File(_pdfService.JoinPdf(models), "application/zip", "temporary.pdf");
 
-        [HttpPost("teste")]
-        public IActionResult Teste([FromForm] IFormFile formFile)
-            => Ok();
-
         [HttpPost("formulario")]
         public IActionResult PostFormulario([FromBody] ModelPdf model) 
             => File(_pdfService.GeraPdf(model), "application/pdf", "temporary.pdf");
