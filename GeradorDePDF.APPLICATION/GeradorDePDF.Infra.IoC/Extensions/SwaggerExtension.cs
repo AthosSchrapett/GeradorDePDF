@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GeradorDePDF.Infra.IoC.Util;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
@@ -21,6 +22,7 @@ public static class SwaggerExtension
                     Name = "Gerador de PDF",
                 }
             });
+            options.OperationFilter<SwaggerFileOperationFilter>();
         });
     }
 
@@ -29,7 +31,7 @@ public static class SwaggerExtension
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "GeradorDePDF.API");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "GeradorDePDF.API");            
         });
     }
 }

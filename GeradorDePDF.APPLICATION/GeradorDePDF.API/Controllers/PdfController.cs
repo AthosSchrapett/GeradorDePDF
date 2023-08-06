@@ -14,16 +14,20 @@ namespace GeradorDePDF.API.Controllers
         public PdfController(IPdfService pdfService) => _pdfService = pdfService;
 
         [HttpPost]
-        public IActionResult PostTxt([FromForm] List<IFormFile> files) 
-            => File(_pdfService.GeraPdf(files[0]), "application/pdf", "temporary.pdf");
+        public IActionResult PostTxt([FromForm] IFormFile file) 
+            => File(_pdfService.GeraPdf(file), "application/pdf", "temporary.pdf");
 
         [HttpPost("split-pdf")]
-        public IActionResult PostPdfSplit([FromForm] PdfSplitRequestModel model)
+        public IActionResult PostPdfSplit([FromForm] PdfRequestModel model)
             => File(_pdfService.SplitPdf(model), "application/zip", "arquivo.zip");
 
         [HttpPost("join-pdf")]
-        public IActionResult PostPdfJoin([FromForm] List<IFormFile> files)
-            => File(_pdfService.JoinPdf(files), "application/zip", "temporary.pdf");
+        public IActionResult PostPdfJoin([FromForm] List<PdfRequestModel> models)
+            => File(_pdfService.JoinPdf(models), "application/zip", "temporary.pdf");
+
+        [HttpPost("teste")]
+        public IActionResult Teste([FromForm] IFormFile formFile)
+            => Ok();
 
         [HttpPost("formulario")]
         public IActionResult PostFormulario([FromBody] ModelPdf model) 

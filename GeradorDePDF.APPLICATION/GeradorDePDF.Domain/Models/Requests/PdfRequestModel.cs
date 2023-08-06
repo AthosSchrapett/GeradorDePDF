@@ -2,8 +2,8 @@
 
 namespace GeradorDePDF.Domain.Models.Requests;
 
-public class PdfSplitRequestModel
+public class PdfRequestModel
 {
-    public List<IFormFile>? Files { get; set; }
+    public IFormFile File { get; set; }
     public IEnumerable<string>? Ranges { get; set; }
 }

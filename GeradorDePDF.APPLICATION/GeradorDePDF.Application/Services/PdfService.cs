@@ -37,19 +37,19 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream JoinPdf(List<IFormFile> files)
+    public MemoryStream JoinPdf(List<PdfRequestModel> models)
     {
-        if (files.Any(x => Path.GetExtension(x.FileName) != ".pdf"))
+        if (models.Any(x => Path.GetExtension(x.File.FileName) != ".pdf"))
             throw new FormatoArquivoIncorretoException();
 
-        string caminho = PdfManipulatorHelper.JuntarPdf(files);
+        string caminho = PdfManipulatorHelper.JuntarPdf(models);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream SplitPdf(PdfSplitRequestModel model)
+    public MemoryStream SplitPdf(PdfRequestModel model)
     {
-        if (Path.GetExtension(model.Files[0].FileName) != ".pdf")
+        if (Path.GetExtension(model.File.FileName) != ".pdf")
             throw new FormatoArquivoIncorretoException();
 
         List<string>? caminhos = new();
@@ -58,8 +58,10 @@ public class PdfService : IPdfService
 
         foreach (string range in model.Ranges)
         {
-            caminhos.Add(PdfManipulatorHelper.SeparaPdf(model.Files[0],$"arquivo_{contador}", range));
-            contador++;
+
+            string caminhoNovo = Path.Combine(Path.GetTempPath(), $"arquivo_{contador++}.pdf");
+            PdfManipulatorHelper.SeparaPdf(model.File, range, ref caminhoNovo);
+            caminhos.Add(caminhoNovo);
         }
 
         return ArquivoHelper.GeraArquivoZip(caminhos);

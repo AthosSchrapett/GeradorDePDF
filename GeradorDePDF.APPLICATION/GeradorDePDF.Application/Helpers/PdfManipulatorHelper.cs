@@ -1,4 +1,5 @@
 ﻿using GeradorDePDF.Application.Util;
+using GeradorDePDF.Domain.Models.Requests;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using Microsoft.AspNetCore.Http;
@@ -7,10 +8,8 @@ namespace GeradorDePDF.Application.Helpers;
 
 public class PdfManipulatorHelper
 {
-    public static string SeparaPdf(IFormFile file, string nomeArquivo, string range)
+    public static PdfDocument SeparaPdf(IFormFile file, string range, ref string caminho)
     {
-        string caminho = Path.Combine(Path.GetTempPath(), $"{nomeArquivo}.pdf");
-
         Stream stream = file.OpenReadStream();
         PdfDocument pdf = new(new PdfReader(stream));
 
@@ -18,26 +17,36 @@ public class PdfManipulatorHelper
         PdfDocument result = pdfSplit.ExtractPageRange(new PageRange(range));
         result.Close();
 
-        return caminho;
+        return result;
     }
 
-    public static string JuntarPdf(List<IFormFile> files)
+    public static string JuntarPdf(List<PdfRequestModel> models)
     {
-        string caminho = Path.Combine(Path.GetTempPath(), $"temporary.pdf");
+        int contador = 0;
+        List<PdfDocument> listaPdf = new();
 
-        PdfDocument pdf = new(new PdfWriter(caminho));
-        PdfMerger merger = new(pdf);
-
-        foreach (IFormFile file in files)
+        foreach (PdfRequestModel model in models)
         {
-            PdfDocument pdfMerge = new(new PdfReader(file.OpenReadStream()));
-
-            merger.Merge(pdfMerge, 1, pdfMerge.GetNumberOfPages());
-
-            pdfMerge.Close();
+            foreach (var range in model.Ranges)
+            {
+                string caminhoPdf = Path.Combine(Path.GetTempPath(), $"arquivo_{contador++}.pdf");
+                listaPdf.Add(SeparaPdf(model.File, range, ref caminhoPdf));
+            }
         }
 
-        pdf.Close();
+        string caminho = Path.Combine(Path.GetTempPath(), $"temporary.pdf");
+
+        PdfDocument pdfDocument = new(new PdfWriter(caminho));
+        PdfMerger merger = new(pdfDocument);
+
+        foreach (var pdf in listaPdf)
+        {
+            merger.Merge(pdf, 1, pdf.GetNumberOfPages());
+
+            pdf.Close();
+        }
+
+        pdfDocument.Close();
 
         return caminho;
     }

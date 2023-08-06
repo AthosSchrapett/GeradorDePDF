@@ -41,7 +41,7 @@ export class TxtComponent {
 
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('files', this.selectedFile, this.selectedFile.name);
+      formData.append('file', this.selectedFile, this.selectedFile.name);
 
       this.subscription = this.pdfGeneratorService.uploadPost(formData)
       .pipe(take(1)).subscribe({

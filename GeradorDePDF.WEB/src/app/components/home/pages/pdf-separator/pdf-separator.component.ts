@@ -123,7 +123,6 @@ export class PdfSeparatorComponent {
   }
 
   submit(): void {
-
     this.pdfSplit = new PdfSplitRequest();
 
     if (this.selectedFile) {
@@ -131,8 +130,8 @@ export class PdfSeparatorComponent {
       this.executaSpinner = true;
 
       const formData = new FormData();
-      formData.append('files', this.selectedFile, this.selectedFile.name);
-      this.pdfSplit.files = formData;
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+      this.pdfSplit.file = formData;
 
       this.areas.forEach(element => {
         if (element.pages.length > 0) {
