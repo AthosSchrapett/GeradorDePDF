@@ -37,12 +37,23 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream JoinPdf(List<PdfRequestModel> models)
+    public MemoryStream JoinPdf(IEnumerable<IFormFile> files, Dictionary<int, List<string>> ranges)
     {
-        if (models.Any(x => Path.GetExtension(x.File.FileName) != ".pdf"))
+        if (files.Any(x => Path.GetExtension(x.FileName) != ".pdf"))
             throw new FormatoArquivoIncorretoException();
 
-        string caminho = PdfManipulatorHelper.JuntarPdf(models);
+        string caminho = PdfManipulatorHelper.JuntarPdf(files, ranges);
+        //List<PdfRequestModel> models = new();
+
+        //int contador = 1;
+
+        //foreach (var file in files)
+        //{
+        //    ranges.TryGetValue(contador, out List<string>? rangesInserir);
+        //    models.Add(new PdfRequestModel { File = file, Ranges = rangesInserir });
+        //}        
+
+        //string caminho = PdfManipulatorHelper.JuntarPdf(models);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }

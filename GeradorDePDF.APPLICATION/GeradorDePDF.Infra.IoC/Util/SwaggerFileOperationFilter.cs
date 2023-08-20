@@ -1,7 +1,9 @@
 ﻿using GeradorDePDF.Domain.Models.Requests;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics;
 
 namespace GeradorDePDF.Infra.IoC.Util;
 

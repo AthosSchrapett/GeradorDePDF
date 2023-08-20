@@ -20,6 +20,41 @@ public class PdfManipulatorHelper
         return result;
     }
 
+    public static string JuntarPdf(IEnumerable<IFormFile> files, Dictionary<int, List<string>> ranges)
+    {
+
+        int contador = 1;
+        string caminho = Path.Combine(Path.GetTempPath(), $"_temporary.pdf");
+
+        PdfWriter pdfWriter = new(caminho);
+        PdfDocument pdfDocument = new(pdfWriter);
+        PdfMerger merger = new(pdfDocument);
+
+        List<PdfDocument> pdfDocuments = new List<PdfDocument>();
+
+        foreach (IFormFile file in files)
+        {
+            //ranges.TryGetValue(contador, out List<string>? rangesInserir);
+            //foreach (string range in rangesInserir)
+            //{
+
+            //}
+
+            pdfDocuments.Add(new PdfDocument(new PdfReader(file.OpenReadStream())));
+
+            contador++;
+        }
+
+        foreach (PdfDocument pdf in pdfDocuments)
+        {
+            merger.Merge(pdf, 1, pdf.GetNumberOfPages());
+
+            pdf.Close();
+        }
+
+        return caminho;
+    }
+
     public static string JuntarPdf(List<PdfRequestModel> models)
     {
         int contador = 0;
@@ -34,19 +69,20 @@ public class PdfManipulatorHelper
             }
         }
 
-        string caminho = Path.Combine(Path.GetTempPath(), $"temporary.pdf");
+        string caminho = Path.Combine(Path.GetTempPath(), $"_temporary.pdf");
 
-        PdfDocument pdfDocument = new(new PdfWriter(caminho));
-        PdfMerger merger = new(pdfDocument);
+        //PdfWriter pdfWriter = new(caminho);
+        //PdfDocument pdfDocument = new(pdfWriter);
+        //PdfMerger merger = new(pdfDocument);
 
-        foreach (var pdf in listaPdf)
-        {
-            merger.Merge(pdf, 1, pdf.GetNumberOfPages());
+        //foreach (var pdf in listaPdf)
+        //{
+        //    merger.Merge(pdf, 1, pdf.GetNumberOfPages());
 
-            pdf.Close();
-        }
+        //    pdf.Close();
+        //}
 
-        pdfDocument.Close();
+        //pdfDocument.Close();
 
         return caminho;
     }

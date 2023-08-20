@@ -14,9 +14,8 @@
 
 <!-- <div>
   <h1>Definição de Paginas</h1>
-  <div *ngFor="let pdf of pdfPages; let i = index">
-    {{ i }}
-  </div>
+  <input type="text" [(ngModel)]="teste">
+  <button (click)="testeButton()">Teste</button>
 </div> -->
 
 <div style="text-align: right;" *ngIf="areas.length > 0">
@@ -36,6 +35,10 @@
           <span class="page-number">Pagina {{ page.number + 1 }}</span>
         </div>
       </ng-container>
+      <div>
+        <input type="text" #range>
+        <button (click)="testeButton(area.id, range.value)">Teste</button>
+      </div>
     </div>
   </div>
 </div>

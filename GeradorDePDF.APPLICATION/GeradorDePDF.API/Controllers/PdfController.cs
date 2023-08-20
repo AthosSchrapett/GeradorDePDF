@@ -22,8 +22,8 @@ namespace GeradorDePDF.API.Controllers
             => File(_pdfService.SplitPdf(model), "application/zip", "arquivo.zip");
 
         [HttpPost("join-pdf")]
-        public IActionResult PostPdfJoin([FromForm] List<PdfRequestModel> models)
-            => File(_pdfService.JoinPdf(models), "application/zip", "temporary.pdf");
+        public IActionResult PostPdfJoin([FromForm] IEnumerable<IFormFile> files, [FromQuery] Dictionary<int, List<string>> ranges) 
+            => File(_pdfService.JoinPdf(files, ranges), "application/zip", "temporary.pdf");
 
         [HttpPost("formulario")]
         public IActionResult PostFormulario([FromBody] ModelPdf model) 
