@@ -183,4 +183,31 @@ export class PdfSeparatorComponent {
       }
     });
   }
+
+  reorganizacaoDeAreas(idArea: any, range: string): void {
+
+    let paginasSelecionadas: number[] = range.split(",").map(str => parseInt(str));
+    let paginasReorganizadas: object[] = []
+
+    this.areas.forEach(element => {
+      const novasPaginas = element.pages.filter((x: any) => paginasSelecionadas.includes(x.number));
+      if (novasPaginas.length > 0) {
+        paginasReorganizadas.push(novasPaginas);
+
+        novasPaginas.forEach((page: any) => {
+          console.log(page);
+          const indice = element.pages.findIndex((pageIndex: any) => pageIndex.number === page.number);
+          element.pages.splice(indice, 1);
+        });
+      }
+    });
+
+    this.areas.forEach(element => {
+      if (element.id === idArea) {
+        paginasReorganizadas.forEach((page: any) => {
+          element.pages.push(page[0]);
+        });
+      }
+    });
+  }
 }
