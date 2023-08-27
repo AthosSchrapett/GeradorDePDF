@@ -1,8 +1,5 @@
-﻿using GeradorDePDF.Domain.Models;
-using GeradorDePDF.Domain.Models.Requests;
+﻿using GeradorDePDF.Domain.Models.Requests;
 using Microsoft.AspNetCore.Http;
-using PdfSharpCore;
-using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
 
@@ -10,25 +7,6 @@ namespace GeradorDePDF.Application.Helpers
 {
     public class PdfManipulatorHelper
     {
-        public static string CriarPdf(ModelPdf model)
-        {
-            PdfDocument document = new PdfDocument();
-
-            string caminho = Path.GetTempFileName();
-
-            PdfPage page = document.AddPage();
-            page.Size = PageSize.A4;
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-
-            XFont font = new("Verdana", 20, XFontStyle.Bold);
-
-            gfx.DrawString("Olá, mundo!", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
-
-            document.Save(caminho);
-
-            return caminho;
-        }
-
         public static List<string> SepararPdf(PdfRequestModel pdfRequestModel)
         {
             List<string> caminhos = new();

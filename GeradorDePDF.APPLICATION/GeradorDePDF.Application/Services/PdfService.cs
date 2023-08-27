@@ -25,9 +25,7 @@ public class PdfService : IPdfService
 
         ModelPdf? model = new(lines[0], lines.Skip(1));
 
-        string caminho = PdfManipulatorHelper.CriarPdf(model);
-
-        //string caminho = ArquivoHelper.CriaPdf(model);
+        string caminho = ArquivoHelper.CriaPdf(model);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
