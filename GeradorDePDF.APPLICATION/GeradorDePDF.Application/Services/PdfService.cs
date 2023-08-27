@@ -4,7 +4,6 @@ using GeradorDePDF.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using GeradorDePDF.Application.Helpers;
 using GeradorDePDF.Domain.Models.Requests;
-using iText.Kernel.Pdf;
 
 namespace GeradorDePDF.Application.Services;
 
@@ -26,7 +25,9 @@ public class PdfService : IPdfService
 
         ModelPdf? model = new(lines[0], lines.Skip(1));
 
-        string caminho = ArquivoHelper.CriaPdf(model);
+        string caminho = PdfManipulatorHelper.CriarPdf(model);
+
+        //string caminho = ArquivoHelper.CriaPdf(model);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
@@ -43,30 +44,17 @@ public class PdfService : IPdfService
         if (files.Any(x => Path.GetExtension(x.FileName) != ".pdf"))
             throw new FormatoArquivoIncorretoException();
 
-        string caminho = PdfSharpManipulatorHelper.JuntarPdf(files, paginasPdf);
+        string caminho = PdfManipulatorHelper.JuntarPdf(files, paginasPdf);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
     public MemoryStream SplitPdf(PdfRequestModel model)
     {
-        if (Path.GetExtension(model.File.FileName) != ".pdf")
+        if (Path.GetExtension(model?.File?.FileName) != ".pdf")
             throw new FormatoArquivoIncorretoException();
 
-        List<string>? caminhos = new();
-
-        int contador = 1;
-
-        foreach (string range in model.Ranges)
-        {
-
-            string caminho = Path.Combine(Path.GetTempPath(), $"arquivo_{contador++}.pdf");
-            
-            PdfDocument pdf = PdfManipulatorHelper.SeparaPdf(model.File, range, caminho);
-            pdf.Close();
-
-            caminhos.Add(caminho);
-        }
+        List<string> caminhos = PdfManipulatorHelper.SepararPdf(model);
 
         return ArquivoHelper.GeraArquivoZip(caminhos);
     }
