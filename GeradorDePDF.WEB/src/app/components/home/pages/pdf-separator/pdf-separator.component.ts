@@ -141,7 +141,7 @@ export class PdfSeparatorComponent {
 
       this.areas.forEach(element => {
         if (element.pages.length > 0) {
-          this.pdfSplit.ranges.push(element.pages.map((valor: any) => ++valor.number).join(','))
+          this.pdfSplit.paginas.push(element.pages.map((valor: any) => valor.number).join(','))
         }
       });
 

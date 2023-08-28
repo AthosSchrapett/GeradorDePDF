@@ -30,10 +30,10 @@ export class PdfGeneratorService {
 
     const formData = splitPdfRequestModel.file;
 
-    for (const range of splitPdfRequestModel.ranges) {
-      formData.append('ranges', range);
+    for (const pagina of splitPdfRequestModel.paginas) {
+      formData.append('paginas', pagina);
     }
-    
+
     return this.httpClient.post(url, formData, { responseType: 'blob' }).pipe(retry(1));
   }
 }
