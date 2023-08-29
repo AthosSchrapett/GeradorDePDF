@@ -18,6 +18,9 @@
   </button>
 </div>
 
+<input type="text" name="" id="" [(ngModel)]="paginasSelecao">
+<button (click)="selecionarPaginas()">TESTE</button>
+
 <div class="area-principal" *ngFor="let area of areas">
   <div class="pdf-container" #pdfPreview>
     <div [id]="area.id" class="drop-area" cdkDropList [cdkDropListData]="area.pages"

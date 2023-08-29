@@ -27,6 +27,7 @@ export class PdfSeparatorComponent {
   pdfPages: string[] = [];
   selectedFile!: any;
   areas: Array<any> = new Array<any>();
+  areasExcluidas: Array<any> = new Array<any>();
   pdfSplit: PdfSplitRequest = new PdfSplitRequest();
   mensagemErro: string = "";
   fileName: string = "";
@@ -129,8 +130,6 @@ export class PdfSeparatorComponent {
     });
   }
 
-  areasExcluidas: any = [];
-
   removerAreasVazias(): void {
     this.areas.forEach((area, index) => {
       if(area.pages.length === 0){
@@ -138,6 +137,31 @@ export class PdfSeparatorComponent {
         this.areas.splice(index, 1);
       }
     });
+  }
+
+  paginasSelecao: number = 0;
+
+  selecionarPaginas(): void {
+    let paginasRemovidas: Array<any> = new Array<any>();
+
+    this.areas.forEach((element, index) => {
+      if(this.paginasSelecao - 1 < index){
+        paginasRemovidas.push(element);
+        this.areas.splice(index, 1);
+      }
+    });
+
+    paginasRemovidas.forEach(element => {
+      element.pages.forEach((page: any) => {
+        console.log(page)
+        this.areas[this.areas.length - 1].pages.push({ newPage: page.newPage, number: page.number });
+      });
+    })
+
+    console.log(this.areas[this.areas.length - 1]);
+
+    // let divisaoPaginas = this.pdfPages.length / this.paginasSelecao;
+    // console.log(divisaoPaginas);
   }
 
   criarNovaArea(): void {
