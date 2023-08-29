@@ -3,10 +3,25 @@
   border: dashed 1px #fa9898;
   min-height: 60px;
   border-radius: 4px;
-  overflow: hidden;
-  display: block;
+  overflow-y: auto;
   min-width: 22%;
   width: max-content;
+}
+
+.pdf-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.pdf-container::-webkit-scrollbar-thumb {
+  background-color: #fa9898;
+}
+
+.pdf-container::-webkit-scrollbar-thumb:hover {
+  background-color: #ff4040;
+}
+
+.pdf-container::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
 }
 
 .page-container{
@@ -119,4 +134,8 @@
 
 .clickable-image {
   cursor: pointer;
+}
+
+.area-principal {
+  display: flex;
 }

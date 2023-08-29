@@ -118,14 +118,33 @@ export class PdfSeparatorComponent {
       );
     }
     this.ordenarPaginas();
+    this.removerAreasVazias();
   }
 
-  ordenarPaginas() {
+  ordenarPaginas(): void {
     this.areas.forEach(area => {
       area.pages.sort((a: any, b: any) => {
         return a.number - b.number;
       });
     });
+  }
+
+  areasExcluidas: any = [];
+
+  removerAreasVazias(): void {
+    this.areas.forEach((area, index) => {
+      if(area.pages.length === 0){
+        this.areasExcluidas.push(area);
+        this.areas.splice(index, 1);
+      }
+    });
+  }
+
+  criarNovaArea(): void {
+    if(this.areasExcluidas.length > 0){
+      this.areas.push(this.areasExcluidas[0]);
+      this.areasExcluidas.splice(0, 1);
+    }
   }
 
   submit(): void {
