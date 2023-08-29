@@ -18,11 +18,12 @@
   </button>
 </div>
 
-<input type="text" name="" id="" [(ngModel)]="paginasSelecao">
-<button (click)="selecionarPaginas()">TESTE</button>
-
 <div class="area-principal" *ngFor="let area of areas">
   <div class="pdf-container" #pdfPreview>
+
+    <input type="text" name="" id="paginasSelecao" placeholder="Formato: 1,2,3" #paginasSelecao>
+    <button class="paginas-button" (click)="selecionarPaginas(area.id, paginasSelecao.value)">PAGINAS</button>
+
     <div [id]="area.id" class="drop-area" cdkDropList [cdkDropListData]="area.pages"
       [cdkDropListConnectedTo]="getConnectedList(area.id)" (cdkDropListDropped)="drop($event)">
       <ng-container *ngFor="let page of area.pages;">
@@ -35,6 +36,7 @@
     </div>
   </div>
 </div>
+
 <div style="margin-top: 10px;" *ngIf="areas.length > 0 && areasExcluidas.length > 0">
   <button mat-raised-button color="primary" (click)="criarNovaArea()">Criar Nova Área</button>
 </div>

@@ -33,6 +33,8 @@ export class PdfSeparatorComponent {
   fileName: string = "";
   executaSpinner: boolean = false;
 
+  paginasSelecao: string = "";
+
   constructor(
     private pdfGeneratorService: PdfGeneratorService,
     private _dialog: MatDialog
@@ -139,29 +141,29 @@ export class PdfSeparatorComponent {
     });
   }
 
-  paginasSelecao: number = 0;
+  selecionarPaginas(areaId: string, paginasSelecao: string): void {
+    if(this.validarFormatoPaginas(paginasSelecao)){
+      let paginasRemovidas: Array<any> = new Array<any>();
+      let paginas = paginasSelecao.split(',').map(x => (Number.parseInt(x) - 1).toString());
 
-  selecionarPaginas(): void {
-    let paginasRemovidas: Array<any> = new Array<any>();
-
-    this.areas.forEach((element, index) => {
-      if(this.paginasSelecao - 1 < index){
-        paginasRemovidas.push(element);
-        this.areas.splice(index, 1);
-      }
-    });
-
-    paginasRemovidas.forEach(element => {
-      element.pages.forEach((page: any) => {
-        console.log(page)
-        this.areas[this.areas.length - 1].pages.push({ newPage: page.newPage, number: page.number });
+      this.areas.forEach((area, indexArea) => {
+        area.pages.forEach((page: any, indexPage: number) => {
+          if(paginas.includes(page.number.toString()) && area.id !== areaId){
+            paginasRemovidas.push(page);
+            this.areas[indexArea].pages.pop();
+          }
+        });
       });
-    })
 
-    console.log(this.areas[this.areas.length - 1]);
-
-    // let divisaoPaginas = this.pdfPages.length / this.paginasSelecao;
-    // console.log(divisaoPaginas);
+      this.areas.forEach((area) => {
+        if(area.id === areaId){
+          paginasRemovidas.forEach(pagina => {
+            area.pages.push(pagina);
+          });
+        }
+      });
+      this.removerAreasVazias();
+    }
   }
 
   criarNovaArea(): void {
@@ -252,5 +254,15 @@ export class PdfSeparatorComponent {
         });
       }
     });
+  }
+
+  validarFormatoPaginas(paginasSelecao: string): boolean {
+
+    if (paginasSelecao.trim() === "") {
+      return true;
+    }
+
+    const pattern = /^\d+(,\s*\d+)*(,\s*\d+)?$/;
+    return pattern.test(paginasSelecao);
   }
 }
