@@ -29,7 +29,7 @@
 }
 
 .drop-area {
-  padding: 20px 10px;
+  padding: 10px 40px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -145,7 +145,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
-  margin-right: 10px;
+  margin: 10px;
 }
 
 .paginas-button {
@@ -157,6 +157,7 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 10px;
 }
 
 .paginas-button:disabled {
@@ -169,3 +170,7 @@
 .paginas-button:hover:not(:disabled) {
   background-color: #ff4c42;
 }
+
+/* .paginasSelecaoBox {
+  position: fixed;
+} */

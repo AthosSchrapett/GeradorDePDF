@@ -21,8 +21,12 @@
 <div class="area-principal" *ngFor="let area of areas">
   <div class="pdf-container" #pdfPreview>
 
-    <input type="text" name="" id="paginasSelecao" placeholder="Formato: 1,2,3" #paginasSelecao>
-    <button class="paginas-button" (click)="selecionarPaginas(area.id, paginasSelecao.value)">PAGINAS</button>
+    <div class="fixed-paginasSelecaoBox"> <!-- Adicione uma classe para o estilo fixo -->
+      <div class="paginasSelecaoBox">
+        <input type="text" name="" id="paginasSelecao" placeholder="Formato: 1,2,3" #paginasSelecao>
+        <button class="paginas-button" (click)="selecionarPaginas(area.id, paginasSelecao.value)">PAGINAS</button>
+      </div>
+    </div>
 
     <div [id]="area.id" class="drop-area" cdkDropList [cdkDropListData]="area.pages"
       [cdkDropListConnectedTo]="getConnectedList(area.id)" (cdkDropListDropped)="drop($event)">

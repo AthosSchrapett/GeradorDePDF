@@ -121,7 +121,8 @@ export class PdfSeparatorComponent {
       );
     }
     this.ordenarPaginas();
-    this.removerAreasVazias();
+    if(event.previousContainer !== event.container)
+      this.removerAreasVazias();
   }
 
   ordenarPaginas(): void {
@@ -150,7 +151,7 @@ export class PdfSeparatorComponent {
         area.pages.forEach((page: any, indexPage: number) => {
           if(paginas.includes(page.number.toString()) && area.id !== areaId){
             paginasRemovidas.push(page);
-            this.areas[indexArea].pages.pop();
+            this.areas[indexArea].pages.splice(indexPage, 1);
           }
         });
       });
@@ -162,6 +163,7 @@ export class PdfSeparatorComponent {
           });
         }
       });
+      this.ordenarPaginas();
       this.removerAreasVazias();
     }
   }
