@@ -41,6 +41,8 @@ export class PdfSeparatorComponent {
   ) { }
 
   onFileSelected(input: HTMLInputElement) {
+    this.areasExcluidas = [];
+
     const file = input.files?.[0];
     this.selectedFile = file;
     this.fileName = this.selectedFile ? this.selectedFile.name : null;
@@ -121,7 +123,7 @@ export class PdfSeparatorComponent {
       );
     }
     this.ordenarPaginas();
-    if(event.previousContainer !== event.container)
+    if (event.previousContainer !== event.container)
       this.removerAreasVazias();
   }
 
@@ -134,42 +136,54 @@ export class PdfSeparatorComponent {
   }
 
   removerAreasVazias(): void {
-    this.areas.forEach((area, index) => {
-      if(area.pages.length === 0){
+    this.areas.forEach((area) => {
+      if (area.pages.length === 0) {
         this.areasExcluidas.push(area);
-        this.areas.splice(index, 1);
       }
     });
+
+    if(this.areasExcluidas.length > 0){
+      this.areasExcluidas.forEach(areaExcluida => {
+        let indexArea = this.areas.findIndex(area => area.id === areaExcluida.id);
+        this.areas.splice(indexArea, 1);
+      });
+    }
   }
 
   selecionarPaginas(areaId: string, paginasSelecao: string): void {
-    if(this.validarFormatoPaginas(paginasSelecao)){
-      let paginasRemovidas: Array<any> = new Array<any>();
-      let paginas = paginasSelecao.split(',').map(x => (Number.parseInt(x) - 1).toString());
 
-      this.areas.forEach((area, indexArea) => {
-        area.pages.forEach((page: any, indexPage: number) => {
-          if(paginas.includes(page.number.toString()) && area.id !== areaId){
-            paginasRemovidas.push(page);
-            this.areas[indexArea].pages.splice(indexPage, 1);
-          }
+    if (this.validarFormatoPaginas(paginasSelecao)) {
+      let paginas = paginasSelecao.split(',');
+      let paginasRemovidas: Array<any> = new Array<any>();
+
+      for (let i = Number.parseInt(paginas[0]) - 1; i < Number.parseInt(paginas[paginas.length - 1]); i++) {
+        this.areas.forEach((area, indexArea) => {
+          area.pages.forEach((page: any, indexPage: number) => {
+
+            if (page.number === i && area.id !== areaId) {
+              paginasRemovidas.push(page);
+              this.areas[indexArea].pages.splice(indexPage, 1);
+            }
+
+          });
         });
-      });
+      }
 
       this.areas.forEach((area) => {
-        if(area.id === areaId){
+        if (area.id === areaId) {
           paginasRemovidas.forEach(pagina => {
             area.pages.push(pagina);
           });
         }
       });
+
       this.ordenarPaginas();
       this.removerAreasVazias();
     }
   }
 
   criarNovaArea(): void {
-    if(this.areasExcluidas.length > 0){
+    if (this.areasExcluidas.length > 0) {
       this.areas.push(this.areasExcluidas[0]);
       this.areasExcluidas.splice(0, 1);
     }
