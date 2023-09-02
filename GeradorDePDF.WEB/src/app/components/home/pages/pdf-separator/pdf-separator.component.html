@@ -18,13 +18,16 @@
   </button>
 </div>
 
+<mat-error *ngIf="mensagemErroSelecaoPaginas !== ''">{{ mensagemErroSelecaoPaginas }}</mat-error>
+
 <div class="area-principal" *ngFor="let area of areas">
   <div class="pdf-container" #pdfPreview>
 
     <div class="fixed-paginasSelecaoBox">
       <div class="paginasSelecaoBox">
-        <input type="text" name="" id="paginasSelecao" placeholder="Formato: 1,2" #paginasSelecao>
-        <button class="paginas-button" (click)="selecionarPaginas(area.id, paginasSelecao.value)">PAGINAS</button>
+        <input type="number" name="" id="paginasSelecao" min="1" #paginaSelecaoInicial>
+        <input type="number" name="" id="paginasSelecao" min="2" #paginaSelecaoFinal>
+        <button class="paginas-button" (click)="selecionarPaginas(area.id, paginaSelecaoInicial.value, paginaSelecaoFinal.value)">PAGINAS</button>
       </div>
     </div>
 

@@ -146,6 +146,7 @@
   border-radius: 4px;
   font-size: 14px;
   margin: 10px;
+  width: 20px;
 }
 
 .paginas-button {
@@ -170,7 +171,3 @@
 .paginas-button:hover:not(:disabled) {
   background-color: #ff4c42;
 }
-
-/* .paginasSelecaoBox {
-  position: fixed;
-} */

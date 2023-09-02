@@ -8,8 +8,6 @@ import { MatDialog } from '@angular/material/dialog';
 import * as pdfjsLib from 'pdfjs-dist';
 import { take } from 'rxjs';
 import { ModalImageComponent } from 'src/app/components/shared/modal-image/modal-image.component';
-import { ModalPdfComponent } from 'src/app/components/shared/modal-pdf/modal-pdf.component';
-import { TipoModal } from 'src/app/enums/tipo-modal.enum';
 import { PdfSplitRequest } from 'src/app/models/pdf-split-Request.model';
 import { PdfGeneratorService } from 'src/app/services/pdf-generator.service';
 
@@ -41,7 +39,9 @@ export class PdfSeparatorComponent {
   ) { }
 
   onFileSelected(input: HTMLInputElement) {
-    this.areasExcluidas = [];
+    if (!(input.files?.[0] === undefined)) {
+      this.areasExcluidas = [];
+    }
 
     const file = input.files?.[0];
     this.selectedFile = file;
@@ -135,6 +135,8 @@ export class PdfSeparatorComponent {
     });
   }
 
+  validaExclusaoAreaFinal: boolean = true;
+
   removerAreasVazias(): void {
     this.areas.forEach((area) => {
       if (area.pages.length === 0) {
@@ -142,21 +144,39 @@ export class PdfSeparatorComponent {
       }
     });
 
-    if(this.areasExcluidas.length > 0){
+    if (this.areas.length === 1) {
+      this.validaExclusaoAreaFinal = false;
+    }
+    else {
+      this.validaExclusaoAreaFinal = true;
+    }
+
+    if (this.validaExclusaoAreaFinal) {
       this.areasExcluidas.forEach(areaExcluida => {
-        let indexArea = this.areas.findIndex(area => area.id === areaExcluida.id);
-        this.areas.splice(indexArea, 1);
+        this.areas.forEach((area, index) => {
+          if (area.id === areaExcluida.id && area.pages.length === 0) {
+            this.areas.splice(index, 1);
+          }
+        });
       });
     }
   }
 
-  selecionarPaginas(areaId: string, paginasSelecao: string): void {
+  mensagemErroSelecaoPaginas: string = "";
 
-    if (this.validarFormatoPaginas(paginasSelecao)) {
-      let paginas = paginasSelecao.split(',');
+  selecionarPaginas(areaId: string, paginaSelecaoInicial: string, paginaSelecaoFinal: string): void {
+
+    if(paginaSelecaoInicial === '0' || paginaSelecaoFinal === '0'){
+      this.mensagemErroSelecaoPaginas = "Página zero não existe.";
+    }
+    else if(paginaSelecaoInicial > paginaSelecaoFinal && paginaSelecaoFinal !== ''){
+      this.mensagemErroSelecaoPaginas = "Pagina inicial deve ser menor que a final";
+    }
+    else{
+      this.mensagemErroSelecaoPaginas = "";
       let paginasRemovidas: Array<any> = new Array<any>();
 
-      for (let i = Number.parseInt(paginas[0]) - 1; i < Number.parseInt(paginas[paginas.length - 1]); i++) {
+      for (let i = Number.parseInt(paginaSelecaoInicial) - 1; i < Number.parseInt(paginaSelecaoFinal); i++) {
         this.areas.forEach((area, indexArea) => {
           area.pages.forEach((page: any, indexPage: number) => {
 
@@ -270,15 +290,5 @@ export class PdfSeparatorComponent {
         });
       }
     });
-  }
-
-  validarFormatoPaginas(paginasSelecao: string): boolean {
-
-    if (paginasSelecao.trim() === "") {
-      return true;
-    }
-
-    const pattern = /^\d+(,\s*\d+)*(,\s*\d+)?$/;
-    return pattern.test(paginasSelecao);
   }
 }
