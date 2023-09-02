@@ -27,11 +27,12 @@ export class PdfSeparatorComponent {
   areas: Array<any> = new Array<any>();
   areasExcluidas: Array<any> = new Array<any>();
   pdfSplit: PdfSplitRequest = new PdfSplitRequest();
-  mensagemErro: string = "";
   fileName: string = "";
   executaSpinner: boolean = false;
-
   paginasSelecao: string = "";
+
+  mensagemErro: string = "";
+  mensagemErroSelecaoPaginas: string = "";
 
   constructor(
     private pdfGeneratorService: PdfGeneratorService,
@@ -161,8 +162,6 @@ export class PdfSeparatorComponent {
       });
     }
   }
-
-  mensagemErroSelecaoPaginas: string = "";
 
   selecionarPaginas(areaId: string, paginaSelecaoInicial: string, paginaSelecaoFinal: string): void {
 
