@@ -54,7 +54,7 @@ namespace GeradorDePDF.API.Controllers
             => File(_pdfService.SplitPdf(model), "application/zip", "arquivo.zip");
 
         /// <summary>
-        /// Junção de Um ou Mais PDFs
+        /// Junção de um ou mais PDFs
         /// </summary>
         /// <remarks>
         ///     Será feito o upload de vários arquivos ".pdf", para cada ".pdf" 
