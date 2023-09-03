@@ -14,10 +14,11 @@ export class PdfGeneratorService {
     private httpClient: HttpClient
   ) { }
 
-  endpoint: string = `${environment.geradorPdfApi}/Pdf`;
+  endpoint: string = `${environment.geradorPdfApi}/pdf`;
 
   uploadPost(formData: any): Observable<any> {
-    return this.httpClient.post(this.endpoint, formData, { responseType: 'blob' } ).pipe(retry(1));
+    let url: string = `${this.endpoint}/txt`
+    return this.httpClient.post(url, formData, { responseType: 'blob' } ).pipe(retry(1));
   }
 
   postFormulario(modelPdf: ModelPDF): Observable<any> {

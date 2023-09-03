@@ -7,15 +7,15 @@ namespace GeradorDePDF.API.Controllers
     [ApiController]
     public class DownloadController : ControllerBase
     {
-        private readonly IDownloadService _downloadService;
+        //private readonly IDownloadService _downloadService;
 
-        public DownloadController(IDownloadService downloadService)
-        {
-            _downloadService = downloadService;
-        }
+        //public DownloadController(IDownloadService downloadService)
+        //{
+        //    _downloadService = downloadService;
+        //}
 
-        [HttpGet]
-        public IActionResult Get()
-            => File(_downloadService.DownloadModeloTxt(), "application/txt", "modelo.txt");
+        //[HttpGet]
+        //public IActionResult Get()
+        //    => File(_downloadService.DownloadModeloTxt(), "application/txt", "modelo.txt");
     }
 }

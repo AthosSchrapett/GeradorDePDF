@@ -1,14 +1,12 @@
 ﻿using GeradorDePDF.Infra.IoC.Util;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace GeradorDePDF.Infra.IoC.Extensions;
+namespace GeradorDePDF.API.Extensions;
 
-public static class SwaggerExtensionTeste
+public static class SwaggerExtension
 {
-    public static void AddSwaggerDocTest(this IServiceCollection services)
+    public static void AddSwaggerDoc(this IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
@@ -16,12 +14,13 @@ public static class SwaggerExtensionTeste
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Gerador de PDF",
-                Description = "API para gerar PDF.",
+                Description = "Projeto desenvolvido por Athos Schrapett",
                 Version = "v1",
                 Contact = new OpenApiContact
                 {
                     Name = "Gerador de PDF",
-                    Email = "athosschrapett@outlook.com"
+                    Email = "athosschrapett@outlook.com",
+                    Url = new Uri("https://www.linkedin.com/in/athos-louzeiro-schrapett/")
                 }
             });
             options.OperationFilter<SwaggerFileOperationFilter>();
@@ -32,11 +31,12 @@ public static class SwaggerExtensionTeste
         });
     }
 
-    public static void UseSwaggerDocTeste(this IApplicationBuilder app)
+    public static void UseSwaggerDoc(this IApplicationBuilder app)
     {
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
+            options.RoutePrefix = "swagger";
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "GeradorDePDF.API");
         });
     }
