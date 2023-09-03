@@ -165,17 +165,20 @@ export class PdfSeparatorComponent {
 
   selecionarPaginas(areaId: string, paginaSelecaoInicial: string, paginaSelecaoFinal: string): void {
 
-    if(paginaSelecaoInicial === '0' || paginaSelecaoFinal === '0'){
+    let paginaInicial: number = Number.parseInt(paginaSelecaoInicial);
+    let paginaFinal: number = Number.parseInt(paginaSelecaoFinal);
+
+    if(paginaInicial === 0 || paginaFinal === 0){
       this.mensagemErroSelecaoPaginas = "Página zero não existe.";
     }
-    else if(paginaSelecaoInicial > paginaSelecaoFinal && paginaSelecaoFinal !== ''){
+    else if(paginaInicial > paginaFinal && paginaSelecaoFinal !== ''){
       this.mensagemErroSelecaoPaginas = "Pagina inicial deve ser menor que a final";
     }
     else{
       this.mensagemErroSelecaoPaginas = "";
       let paginasRemovidas: Array<any> = new Array<any>();
 
-      for (let i = Number.parseInt(paginaSelecaoInicial) - 1; i < Number.parseInt(paginaSelecaoFinal); i++) {
+      for (let i = paginaInicial - 1; i < paginaFinal; i++) {
         this.areas.forEach((area, indexArea) => {
           area.pages.forEach((page: any, indexPage: number) => {
 
