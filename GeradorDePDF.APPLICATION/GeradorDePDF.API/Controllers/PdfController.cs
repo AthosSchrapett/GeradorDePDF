@@ -25,8 +25,8 @@ namespace GeradorDePDF.API.Controllers
         /// <response code="200">Retorna um arquivo PDF</response>
         /// <response code="406">Retorna um Erro por conta do tipo de extensão, somente aceito ".txt"</response>
         [HttpPost("txt")]
-        public IActionResult PostTxt([FromForm] IFormFile file)
-            => File(_pdfService.GeraPdf(file), "application/pdf", "temporary.pdf");
+        public IActionResult PostTxt([FromForm] List<IFormFile> files)
+            => File(_pdfService.GeraPdf(files), "application/pdf", "temporary.pdf");
 
         /// <summary>
         /// Geração de PDF a partir de um objeto.
@@ -35,7 +35,7 @@ namespace GeradorDePDF.API.Controllers
         /// <returns>PDF</returns>
         /// <response code="200">Retorna um arquivo PDF</response>
         [HttpPost("formulario")]
-        public IActionResult PostFormulario([FromBody] ModelPdf model)
+        public IActionResult PostFormulario([FromForm] ModelPdf model)
             => File(_pdfService.GeraPdf(model), "application/pdf", "temporary.pdf");
 
         /// <summary>

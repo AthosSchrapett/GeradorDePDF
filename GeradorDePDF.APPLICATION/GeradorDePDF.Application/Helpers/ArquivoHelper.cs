@@ -1,9 +1,12 @@
 ﻿using GeradorDePDF.Domain.Models;
+using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
+using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.IO.Compression;
 
 namespace GeradorDePDF.Application.Helpers;
@@ -27,12 +30,22 @@ public class ArquivoHelper
                .SetFontColor(principalColor)
                .SetFontSize(25);
 
+        using MemoryStream imagemStream = new();
+        model.Imagem.CopyTo(imagemStream);
+
+        Image img = new Image(ImageDataFactory
+            .Create(imagemStream.ToArray()))
+            .SetMarginTop(25)
+            .SetWidth(150)
+            .SetTextAlignment(TextAlignment.LEFT);
+
         SolidLine sl = new();
 
         LineSeparator ls = new(sl);
         ls.SetRelativePosition(0, 5, 0, 35);
 
         document.Add(header);
+        document.Add(img);
         document.Add(ls);
 
         CriaParagrafo(document, model);

@@ -4,26 +4,35 @@ using GeradorDePDF.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using GeradorDePDF.Application.Helpers;
 using GeradorDePDF.Domain.Models.Requests;
+using GeradorDePDF.Application.Util;
 
 namespace GeradorDePDF.Application.Services;
 
 public class PdfService : IPdfService
 {
-    public MemoryStream GeraPdf(IFormFile file)
+    public MemoryStream GeraPdf(List<IFormFile> files)
     {
-        if (Path.GetExtension(file.FileName) != ".txt")
+        if (Path.GetExtension(files[0].FileName) != ".txt")
+            throw new FormatoArquivoIncorretoException();
+
+        if(!FormatValidator.ImagemExtension(files[1].FileName))
             throw new FormatoArquivoIncorretoException();
 
         List<string>? lines = new();
 
-        using StreamReader? reader = new(file.OpenReadStream());
+        using StreamReader? reader = new(files[0].OpenReadStream());
 
         string? line;
 
         while ((line = reader.ReadLine()) is not null)
             lines.Add(line);
 
-        ModelPdf? model = new(lines[0], lines.Skip(1));
+        ModelPdf? model = new()
+        {
+            Titulo = lines[0],
+            Conteudo = lines.Skip(1),
+            Imagem = files[1]
+        };
 
         string caminho = ArquivoHelper.CriaPdf(model);
 
@@ -32,6 +41,9 @@ public class PdfService : IPdfService
 
     public MemoryStream GeraPdf(ModelPdf model)
     {
+        if (!FormatValidator.ImagemExtension(model.Imagem.FileName))
+            throw new FormatoArquivoIncorretoException();
+
         string caminho = ArquivoHelper.CriaPdf(model);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
