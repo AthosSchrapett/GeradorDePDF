@@ -3,10 +3,8 @@ using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
-using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Properties;
 using System.IO.Compression;
 
 namespace GeradorDePDF.Application.Helpers;
@@ -26,7 +24,7 @@ public class ArquivoHelper
         document.SetFontColor(principalColor);
 
         Paragraph header = new Paragraph(model.Titulo)
-               .SetRelativePosition(0, 2, 0, 30)
+               .SetRelativePosition(0, 35, 0, 0)
                .SetFontColor(principalColor)
                .SetFontSize(25);
 
@@ -35,18 +33,23 @@ public class ArquivoHelper
 
         Image img = new Image(ImageDataFactory
             .Create(imagemStream.ToArray()))
-            .SetMarginTop(25)
-            .SetWidth(150)
-            .SetTextAlignment(TextAlignment.LEFT);
+            .SetRelativePosition(370, -30, 0, 5)
+            .SetWidth(150);
 
         SolidLine sl = new();
 
         LineSeparator ls = new(sl);
-        ls.SetRelativePosition(0, 5, 0, 35);
+        ls.SetRelativePosition(0, 5, 0, 0);
+
+        Paragraph paragraph = new Paragraph("")
+                .SetRelativePosition(5, 40, 0, 0)
+                .SetFontSize(10);
 
         document.Add(header);
         document.Add(img);
         document.Add(ls);
+
+        document.Add(paragraph);
 
         CriaParagrafo(document, model);
 
