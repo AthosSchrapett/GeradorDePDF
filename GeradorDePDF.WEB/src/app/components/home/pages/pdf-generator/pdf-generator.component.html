@@ -1,10 +1,13 @@
+<h2 style="float: right; margin-top: 15px;">GERAÇÃO DE PDF</h2>
+
 <mat-form-field>
-  <mat-label>Select</mat-label>
+  <mat-label>Gerar ".pdf" a partir de:</mat-label>
   <mat-select [(ngModel)]="tipoInclusao">
     <mat-option [value]="TipoInclusao.Txt">TXT</mat-option>
     <mat-option [value]="TipoInclusao.Formulario">Formulario</mat-option>
   </mat-select>
 </mat-form-field>
+<hr style="margin-bottom: 30px;">
 
-<app-txt [tipoInclusao]="tipoInclusao"></app-txt>
-<app-formulario [tipoInclusao]="tipoInclusao"></app-formulario>
+<app-txt *ngIf="tipoInclusao === TipoInclusao.Txt" [tipoInclusao]="tipoInclusao"></app-txt>
+<app-formulario *ngIf="tipoInclusao === TipoInclusao.Formulario" [tipoInclusao]="tipoInclusao"></app-formulario>

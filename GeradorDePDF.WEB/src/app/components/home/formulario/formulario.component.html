@@ -1,8 +1,9 @@
 <app-spinner *ngIf="executaSpinner"></app-spinner>
 
-<hr>
-
 <form [formGroup]="formulario" (ngSubmit)="submit()">
+
+  <h3 style="color: #a09e9e;">Preencha o formulário para gerar seu ".pdf".</h3>
+
   <div class="form-container">
     <mat-form-field appearance="outline">
       <mat-label>Titulo</mat-label>
