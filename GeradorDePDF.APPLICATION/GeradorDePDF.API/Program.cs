@@ -1,6 +1,7 @@
 using GeradorDePDF.API.Extensions;
 using GeradorDePDF.Infra.IoC.Extensions;
 using GeradorDePDF.Infra.IoC.Middelwares;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

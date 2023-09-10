@@ -4,7 +4,9 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
+using Microsoft.AspNetCore.Http;
 using System.IO.Compression;
+using System.Text;
 
 namespace GeradorDePDF.Application.Helpers;
 
@@ -40,6 +42,20 @@ public class ArquivoHelper
         document.Close();
 
         return caminho;
+    }
+
+    public static List<string>? RetornaLinhasArquivo(IFormFile file, Encoding encoding)
+    {
+        List<string>? lines = new();
+
+        using StreamReader? reader = new(file.OpenReadStream(), encoding);
+
+        string? line;
+
+        while ((line = reader.ReadLine()) is not null)
+            lines.Add(line);
+
+        return lines;
     }
 
     public static MemoryStream GeraArquivoDownload(string caminho)

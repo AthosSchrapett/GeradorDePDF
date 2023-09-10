@@ -10,4 +10,5 @@ public interface IPdfService
     public MemoryStream GeraPdf(ModelPdf model);
     public MemoryStream SplitPdf(PdfRequestModel model);
     public MemoryStream JoinPdf(IEnumerable<IFormFile> files, Dictionary<int, IEnumerable<int>> paginasPdf);
+    public MemoryStream GeraPdfWithCsv(CsvPdfRequestModel model);
 }

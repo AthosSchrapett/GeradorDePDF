@@ -68,5 +68,11 @@ namespace GeradorDePDF.API.Controllers
         public IActionResult PostPdfJoin([FromForm] IEnumerable<IFormFile> files, [FromQuery] Dictionary<int, IEnumerable<int>> paginasPdf)
             => File(_pdfService.JoinPdf(files, paginasPdf), "application/pdf", "temporary.pdf");
 
+        [HttpPost("csv-pdf")]
+        public IActionResult PostCsv([FromForm] CsvPdfRequestModel model)
+        {
+            return File(_pdfService.GeraPdfWithCsv(model), "application/pdf", "temporary.pdf");
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using GeradorDePDF.Infra.IoC.Util;
+﻿using GeradorDePDF.Domain.Enums;
+using GeradorDePDF.Infra.IoC.Util;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
