@@ -54,7 +54,7 @@ public class CsvHelper
             }
         }
 
-        Cell cellFinal = new Cell().SetHeight(-1).SetBorderBottom(new SolidBorder(1));
+        Cell cellFinal = new Cell().SetHeight(0).SetBorderBottom(new SolidBorder(1));
         for (int i = 0; i < colunas.Count; i++)
         {
             table.AddCell(cellFinal);
