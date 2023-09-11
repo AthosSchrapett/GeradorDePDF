@@ -68,11 +68,18 @@ namespace GeradorDePDF.API.Controllers
         public IActionResult PostPdfJoin([FromForm] IEnumerable<IFormFile> files, [FromQuery] Dictionary<int, IEnumerable<int>> paginasPdf)
             => File(_pdfService.JoinPdf(files, paginasPdf), "application/pdf", "temporary.pdf");
 
+        /// <summary>
+        /// Criação de PDF a partir de um ".csv"
+        /// </summary>
+        /// <remarks>
+        /// Será feito o upload de um arquivo ".csv" e como retorno um arquivo ".pdf"
+        ///</remarks>
+        /// <returns>PDF</returns>
+        /// <response code="200">Retorna um arquivo PDF</response>
+        /// <response code="406">Retorna um Erro por conta do tipo de extensão, somente aceito ".csv"</response>
         [HttpPost("csv-pdf")]
-        public IActionResult PostCsv([FromForm] CsvPdfRequestModel model)
-        {
-            return File(_pdfService.GeraPdfWithCsv(model), "application/pdf", "temporary.pdf");
-        }
+        public IActionResult PostCsv([FromForm] CsvPdfRequestModel model) => 
+            File(_pdfService.GeraPdfWithCsv(model), "application/pdf", "temporary.pdf");
 
     }
 }

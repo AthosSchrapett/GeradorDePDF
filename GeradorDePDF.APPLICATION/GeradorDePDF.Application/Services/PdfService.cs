@@ -35,10 +35,13 @@ public class PdfService : IPdfService
 
     public MemoryStream GeraPdfWithCsv(CsvPdfRequestModel model)
     {
+        if(Path.GetExtension(model.File.FileName) != ".csv")
+            throw new FormatoArquivoIncorretoException();
+
         Encoding encoding = GetEncoding(model.EncodingType);
 
         List<string>? lines = ArquivoHelper.RetornaLinhasArquivo(model.File, encoding);
-        string caminho = CsvHelper.CriarTabela(lines);
+        string caminho = CsvHelper.CriarTabela(lines, model.Delimitador, model.PageOrientationType);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }

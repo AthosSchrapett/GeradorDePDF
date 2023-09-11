@@ -1,4 +1,5 @@
-﻿using iText.Kernel.Colors;
+﻿using GeradorDePDF.Domain.Enums;
+using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Borders;
@@ -9,21 +10,25 @@ namespace GeradorDePDF.Application.Helpers;
 
 public class CsvHelper
 {
-    public static string CriarTabela(List<string> linhas)
+    public static string CriarTabela(List<string> linhas, string delimitador, PageOrientationType pageOrientationType)
     {
-        List<string> colunas = linhas.First().Split(';').ToList();
-        List<string[]> linhasTabela = linhas.Skip(1).Select(x => x.Split(';')).ToList();
+        List<string> colunas = linhas.First().Split(delimitador).ToList();
+        List<string[]> linhasTabela = linhas.Skip(1).Select(x => x.Split(delimitador)).ToList();
 
-        string caminho = CriarPdfPorCsv(colunas, linhasTabela);
+        string caminho = CriarPdfPorCsv(colunas, linhasTabela, pageOrientationType);
 
         return caminho;
     }
 
-    private static string CriarPdfPorCsv(List<string> colunas, List<string[]> linhasTabela)
+    private static string CriarPdfPorCsv(List<string> colunas, List<string[]> linhasTabela, PageOrientationType pageOrientationType)
     {
         string caminho = Path.Combine(Path.GetTempPath(), "temporary.pdf");
 
         PdfDocument pdf = new(new PdfWriter(caminho));
+
+        if(pageOrientationType is PageOrientationType.Horizontal)
+            pdf.SetDefaultPageSize(iText.Kernel.Geom.PageSize.A4.Rotate());
+        
         Document document = new(pdf);
 
         Table table = new(colunas.Count, true);
