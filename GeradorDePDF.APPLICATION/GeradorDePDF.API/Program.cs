@@ -6,7 +6,9 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting(map => map.LowercaseUrls = true);
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+        .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
 

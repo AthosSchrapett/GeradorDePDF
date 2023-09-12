@@ -4,7 +4,6 @@ using GeradorDePDF.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using GeradorDePDF.Application.Helpers;
 using GeradorDePDF.Domain.Models.Requests;
-using Org.BouncyCastle.Utilities.Encoders;
 using System.Text;
 using GeradorDePDF.Domain.Enums;
 
