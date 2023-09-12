@@ -10,17 +10,17 @@ namespace GeradorDePDF.Application.Helpers;
 
 public class CsvHelper
 {
-    public static string CriarTabela(List<string> linhas, string delimitador, PageOrientationType pageOrientationType)
+    public static string CriarTabela(List<string> linhas, string delimitador, PageOrientationType pageOrientationType, string titulo)
     {
         List<string> colunas = linhas.First().Split(delimitador).ToList();
         List<string[]> linhasTabela = linhas.Skip(1).Select(x => x.Split(delimitador)).ToList();
 
-        string caminho = CriarPdfPorCsv(colunas, linhasTabela, pageOrientationType);
+        string caminho = CriarPdfPorCsv(colunas, linhasTabela, pageOrientationType, titulo);
 
         return caminho;
     }
 
-    private static string CriarPdfPorCsv(List<string> colunas, List<string[]> linhasTabela, PageOrientationType pageOrientationType)
+    private static string CriarPdfPorCsv(List<string> colunas, List<string[]> linhasTabela, PageOrientationType pageOrientationType, string titulo)
     {
         string caminho = Path.Combine(Path.GetTempPath(), "temporary.pdf");
 
@@ -30,6 +30,13 @@ public class CsvHelper
             pdf.SetDefaultPageSize(iText.Kernel.Geom.PageSize.A4.Rotate());
         
         Document document = new(pdf);
+
+        Paragraph title = new(titulo);
+        title
+            .SetTextAlignment(TextAlignment.CENTER)
+            .SetFontSize(18)
+            .SetBold();
+        document.Add(title);
 
         Table table = new(colunas.Count, true);
 

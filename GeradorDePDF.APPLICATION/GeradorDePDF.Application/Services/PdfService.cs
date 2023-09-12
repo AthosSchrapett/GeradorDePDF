@@ -41,7 +41,7 @@ public class PdfService : IPdfService
         Encoding encoding = GetEncoding(model.EncodingType);
 
         List<string>? lines = ArquivoHelper.RetornaLinhasArquivo(model.File, encoding);
-        string caminho = CsvHelper.CriarTabela(lines, model.Delimitador, model.PageOrientationType);
+        string caminho = CsvHelper.CriarTabela(lines, model.Delimitador, model.PageOrientationType, model.Titulo);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
