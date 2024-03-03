@@ -163,10 +163,10 @@ export class PdfSeparatorComponent {
     }
   }
 
-  selecionarPaginas(areaId: string, paginaSelecaoInicial: string, paginaSelecaoFinal: string): void {
+  selecionarPaginas(areaId: string, paginaSelecaoInicial: any, paginaSelecaoFinal: any): void {
 
-    let paginaInicial: number = Number.parseInt(paginaSelecaoInicial);
-    let paginaFinal: number = Number.parseInt(paginaSelecaoFinal);
+    let paginaInicial: number = Number.parseInt(paginaSelecaoInicial.value);
+    let paginaFinal: number = Number.parseInt(paginaSelecaoFinal.value);
 
     if(paginaInicial === 0 || paginaFinal === 0){
       this.mensagemErroSelecaoPaginas = "Página zero não existe.";
@@ -201,11 +201,17 @@ export class PdfSeparatorComponent {
 
       this.ordenarPaginas();
       this.removerAreasVazias();
+
+      paginaSelecaoInicial.value = "";
+      paginaSelecaoFinal.value = "";
     }
   }
 
   criarNovaArea(): void {
-    if (this.areasExcluidas.length > 0) {
+
+    const validaAreaInclusao = !(this.areas.some(x => x.pages.length === 0) && this.areasExcluidas.length > 0);
+
+    if (validaAreaInclusao) {
       this.areas.push(this.areasExcluidas[0]);
       this.areasExcluidas.splice(0, 1);
     }
