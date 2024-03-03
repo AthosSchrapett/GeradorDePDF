@@ -45,7 +45,7 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    private Encoding GetEncoding(EncodingType encodingType)
+    private static Encoding GetEncoding(EncodingType encodingType)
     {
         return encodingType switch
         {
