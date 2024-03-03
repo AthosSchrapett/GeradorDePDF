@@ -14,6 +14,10 @@
         <mat-icon mat-list-icon class="mat-24">splitscreen_right</mat-icon>
         <span mat-line class="mat-list-item-content">Separar PDF</span>
       </a>
+      <a mat-list-item routerLink="/pdf-join">
+        <mat-icon mat-list-icon class="mat-24">merge_type</mat-icon>
+        <span mat-line class="mat-list-item-content">Juntar PDF</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [ngClass]="{'collapsed-toolbar': !isMenuOpen, 'toolbar': isMenuOpen}">

@@ -13,5 +13,9 @@ export const AppRoutes: Routes = [
   {
     path: 'pdf-split',
     loadChildren: () => import('./components/home/pages/pdf-separator/pdf-separator.module').then(x => x.PdfSeparatorModule)
+  },
+  {
+    path: 'pdf-join',
+    loadChildren: () => import('./components/home/pages/pdf-combine/pdf-combine.module').then(x => x.PdfCombineModule)
   }
 ];
