@@ -1,6 +1,8 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
+import { PdfGeneratorComponent } from './components/pages/pdf-generator/pdf-generator.component';
+import { PdfSplitComponent } from './components/pages/pdf-split/pdf-split.component';
 
-export const AppRoutes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     redirectTo: 'pdf-generator',
@@ -8,14 +10,10 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'pdf-generator',
-    loadChildren: () => import('./components/home/pages/pdf-generator/pdf-generator.module').then(x => x.PdfGeneratorModule)
+    component: PdfGeneratorComponent
   },
   {
     path: 'pdf-split',
-    loadChildren: () => import('./components/home/pages/pdf-separator/pdf-separator.module').then(x => x.PdfSeparatorModule)
-  },
-  {
-    path: 'pdf-join',
-    loadChildren: () => import('./components/home/pages/pdf-combine/pdf-combine.module').then(x => x.PdfCombineModule)
+    component: PdfSplitComponent
   }
 ];

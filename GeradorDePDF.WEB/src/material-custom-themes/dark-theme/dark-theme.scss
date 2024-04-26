@@ -1,0 +1,9 @@
+.dark-theme .mat-toolbar.mat-primary {
+  height: 64px;
+}
+
+.dark-theme .mat-mdc-list-base {
+  --mdc-list-list-item-one-line-container-height: 48px;
+  --mdc-list-list-item-two-line-container-height: 64px;
+  --mdc-list-list-item-three-line-container-height: 88px;
+}

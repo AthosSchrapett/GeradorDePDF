@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.topo {
+  background-color: #fc6b6b;
+}
+
+.topo span {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.radio-label {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.imagem {
+  width: 22%;
+}
+
+.line-divider {
+  margin-bottom: 30px;
+}
+
+.submit-button {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.submit-button button {
+  height: 55px;
+  width: 150px;
+  background: #428801 !important;
+  color: #fdefef !important;
+}
+
+.submit-button button:disabled {
+  background-color: #a8a8a8 !important;
+  color: #fdefef !important;
+}
