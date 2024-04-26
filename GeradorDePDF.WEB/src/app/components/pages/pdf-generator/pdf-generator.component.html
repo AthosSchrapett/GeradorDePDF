@@ -1,0 +1,27 @@
+<mat-form-field>
+  <mat-label>Enviar por: </mat-label>
+  <mat-select [(ngModel)]="tipoInclusao" (selectionChange)="alterarSelecao()">
+    <mat-option [value]="TipoInclusao.Txt">TXT</mat-option>
+    <mat-option [value]="TipoInclusao.Formulario">Formulário</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<hr class="line-divider">
+
+@if (tipoInclusao === TipoInclusao.Txt) {
+  <app-input-file
+    [multiple]="false"
+    accept=".txt"
+    [validaCampoSelecao]="file === undefined || file === null"
+    (filesSelected)="onFileSelected($event)"
+  ></app-input-file>
+}
+@else {
+  <app-input-form
+    (modelPdf)="onModelPdf($event)"
+  ></app-input-form>
+}
+
+<div class="submit-button">
+  <button [disabled]="validaEnvioPdf()" type="submit" mat-raised-button (click)="onSubmit()">ENVIAR</button>
+</div>

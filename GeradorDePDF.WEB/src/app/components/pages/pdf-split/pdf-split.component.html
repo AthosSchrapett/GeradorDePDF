@@ -1,0 +1,58 @@
+<app-input-file
+  [multiple]="false"
+  accept=".pdf"
+  [validaCampoSelecao]="file === undefined || file === null"
+  (filesSelected)="onFileSelected($event)"
+  (filesRemoved)="onFileRemoved()"
+></app-input-file>
+
+<div class="submit-button">
+  <button [disabled]="areas.length === 0" type="submit" mat-raised-button (click)="submit()">ENVIAR</button>
+</div>
+
+@if (areas.length > 0) {
+
+  <!-- <div style="text-align: right;">
+    <button mat-raised-button color="primary" (click)="submit()">
+      SALVAR
+    </button>
+  </div> -->
+}
+
+@if (mensagemErroSelecaoPaginas !== '') {
+  <mat-error>{{ mensagemErroSelecaoPaginas }}</mat-error>
+}
+
+@for (area of areas; track $index) {
+  <div class="area-principal">
+    <div class="pdf-container" #pdfPreview>
+
+      <div class="fixed-paginasSelecaoBox">
+        <div class="paginasSelecaoBox">
+          <input type="number" name="" id="paginasSelecao" min="1" #paginaSelecaoInicial>
+          <input type="number" name="" id="paginasSelecao" min="2" #paginaSelecaoFinal>
+          <button class="paginas-button" (click)="selecionarPaginas(area.id, paginaSelecaoInicial, paginaSelecaoFinal)">PAGINAS</button>
+        </div>
+      </div>
+
+      <div [id]="area.id" class="drop-area" cdkDropList [cdkDropListData]="area.pages"
+        [cdkDropListConnectedTo]="getConnectedList(area.id)" (cdkDropListDropped)="drop($event)">
+        @for (page of area.pages; track $index) {
+          <ng-container>
+            <div class="page-container" cdkDrag>
+              <img width="200" height="300" [src]="page.newPage" alt="Page {{ page.number + 1 }}" class="clickable-image"
+                (click)="showImageInLightbox(page.newPage)">
+              <span class="page-number">Pagina {{ page.number + 1 }}</span>
+            </div>
+          </ng-container>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+@if (areas.length > 0 && areasExcluidas.length > 0) {
+  <div style="margin-top: 10px;">
+    <button mat-raised-button color="primary" (click)="criarNovaArea()">Criar Nova Área</button>
+  </div>
+}

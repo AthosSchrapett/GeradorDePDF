@@ -1,0 +1,17 @@
+<form [formGroup]="formulario">
+  <div class="form-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Titulo</mat-label>
+      <input class="form-control" type="text" formControlName="titulo" matInput placeholder="Titulo">
+    </mat-form-field>
+  </div>
+
+  <div class="form-container">
+    <mat-form-field class="example-full-width">
+      <mat-label>Conteúdo</mat-label>
+      <textarea formControlName="conteudo" matInput class="form-control" aria-label="With textarea"
+        (input)="ajustaTamanhoTextArea(element)" #element></textarea>
+    </mat-form-field>
+  </div>
+
+</form>

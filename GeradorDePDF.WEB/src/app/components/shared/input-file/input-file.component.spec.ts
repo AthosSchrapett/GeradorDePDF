@@ -6,10 +6,12 @@ describe('InputFileComponent', () => {
   let component: InputFileComponent;
   let fixture: ComponentFixture<InputFileComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [InputFileComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [InputFileComponent]
+    })
+    .compileComponents();
+    
     fixture = TestBed.createComponent(InputFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,16 +1,35 @@
 import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
-import { rotateAnimation } from 'src/app/animations/animations';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
+import { rotateAnimation } from '../../animations/animations';
 
 @Component({
   selector: 'app-side-nav',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatListModule,
+  ],
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.css'],
+  styleUrl: './side-nav.component.scss',
   animations: [rotateAnimation]
 })
 export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
-    this.adjustMenuState(window.innerWidth);
+    if (typeof window !== "undefined")
+      this.adjustMenuState(window.innerWidth);
   }
 
   isMenuOpen: boolean = true;
@@ -40,4 +59,5 @@ export class SideNavComponent implements OnInit {
     const width = event.target.innerWidth;
     this.isMenuOpen = width < 656 ? false : true;
   }
+
 }

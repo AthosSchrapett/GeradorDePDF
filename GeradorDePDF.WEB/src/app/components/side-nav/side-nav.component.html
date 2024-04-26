@@ -1,8 +1,12 @@
 <mat-sidenav-container class="container">
   <mat-sidenav #sidenav mode="side" opened="true" [ngClass]="{'collapsed-sidenav': !isMenuOpen, 'sidenav': isMenuOpen}">
     <mat-nav-list [ngClass]="{'list-logo-dark': isDark, 'list-logo-light': !isDark }">
-      <img *ngIf="isMenuOpen" class="logo" src="../../../assets/logo.png" />
-      <img *ngIf="!isMenuOpen" class="logo-min" src="../../../assets/logo-min.png" />
+      @if (isMenuOpen) {
+        <img class="logo" src="../../../assets/logo.png" />
+      }
+      @else {
+        <img class="logo-min" src="../../../assets/logo-min.png" />
+      }
     </mat-nav-list>
 
     <mat-nav-list [ngClass]="{'collapsed': !isMenuOpen}">
@@ -14,15 +18,11 @@
         <mat-icon mat-list-icon class="mat-24">splitscreen_right</mat-icon>
         <span mat-line class="mat-list-item-content">Separar PDF</span>
       </a>
-      <a mat-list-item routerLink="/pdf-join">
-        <mat-icon mat-list-icon class="mat-24">merge_type</mat-icon>
-        <span mat-line class="mat-list-item-content">Juntar PDF</span>
-      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [ngClass]="{'collapsed-toolbar': !isMenuOpen, 'toolbar': isMenuOpen}">
     <mat-toolbar color="warn">
-      <button mat-icon-button (click)="toggleMenu()" [@rotateAnimation]="isMenuOpen ? 'open' : 'closed'">
+      <button class="toggleMenu" mat-icon-button (click)="toggleMenu()" [@rotateAnimation]="isMenuOpen ? 'open' : 'closed'">
         <mat-icon>menu</mat-icon>
       </button>
       <mat-slide-toggle class="toogle-mode" color="primary" (change)="isDark = !isDark"><span>{{ mode }}</span></mat-slide-toggle>

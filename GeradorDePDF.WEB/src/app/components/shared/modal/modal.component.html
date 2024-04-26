@@ -1,0 +1,39 @@
+<mat-dialog-content class="confirmation-dialog">
+  <div class="modal-content">
+      @if (data.urlPdf !== "" && data.urlPdf !== null && data.urlPdf !== undefined) {
+        <ngx-extended-pdf-viewer
+          [(src)]="data.urlPdf"
+          [textLayer]="true"
+          [zoom]="'page-width'"
+          [height]="'auto'"
+          [showToolbar]="true"
+          [showSidebarButton]="true"
+          [showFindButton]="true"
+          [showPagingButtons]="true"
+          [showDrawEditor]="true"
+          [showStampEditor]="false"
+          [showTextEditor]="false"
+          [showZoomButtons]="true"
+          [showPresentationModeButton]="false"
+          [showOpenFileButton]="false"
+          [showPrintButton]="true"
+          [showDownloadButton]="true"
+          [showSecondaryToolbarButton]="true"
+          [showRotateButton]="false"
+          [showHandToolButton]="true"
+          [showScrollingButton]="false"
+          [showSpreadButton]="false"
+          [showPropertiesButton]="false"
+        ></ngx-extended-pdf-viewer>
+      }
+      @if (data.image !== "" && data.image !== null && data.image !== undefined) {
+        <div class="modal-content">
+          <img [src]="data.image" alt="Ampliada">
+        </div>
+      }
+    </div>
+
+  <div class="buttons">
+    <button mat-raised-button (click)="fecharModal()">FECHAR</button>
+  </div>
+</mat-dialog-content>
