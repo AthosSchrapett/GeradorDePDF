@@ -1,0 +1,35 @@
+.input_fileupload--hidden {
+  display: none;
+}
+
+.arquivo-button {
+  height: 55px;
+  background: #f85252 !important;
+  color: #fdefef !important;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+.button-upload-box {
+  display: flex;
+  float: inline-end;
+  margin: -21px 0px 0px 0px;
+}
+
+::ng-deep .mat-pseudo-checkbox {
+  display: none !important;
+}
+
+.mat-mdc-option .mat-icon,
+.mat-mdc-option .mat-pseudo-checkbox-full {
+  color: red;
+}

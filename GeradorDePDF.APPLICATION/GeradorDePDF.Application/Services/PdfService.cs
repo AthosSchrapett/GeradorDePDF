@@ -56,17 +56,21 @@ public class PdfService : IPdfService
         };
     }
 
-    public MemoryStream JoinPdf(IEnumerable<IFormFile> files, Dictionary<int, IEnumerable<int>> paginasPdf)
+    public MemoryStream JoinPdf(IEnumerable<IFormFile> files, List<string> paginasPdf)
     {
         if (files.Any(x => Path.GetExtension(x.FileName) != ".pdf"))
             throw new FormatoArquivoIncorretoException();
 
-        string caminho = PdfManipulatorHelper.JuntarPdf(files, paginasPdf);
+        List<PdfJoin> pdfs = files
+            .Zip(paginasPdf, (arquivo, paginas) => new PdfJoin(arquivo, paginas))
+            .ToList();
+
+        string caminho = PdfManipulatorHelper.JuntarPdf(pdfs);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream SplitPdf(PdfRequestModel model)
+    public MemoryStream SplitPdf(Domain.Models.Requests.PdfRequestModel model)
     {
         if (Path.GetExtension(model?.File?.FileName) != ".pdf")
             throw new FormatoArquivoIncorretoException();

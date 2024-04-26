@@ -50,23 +50,23 @@ namespace GeradorDePDF.API.Controllers
         /// <response code="200">Retorna um arquivo Zip com os PDFs separados</response>
         /// <response code="406">Retorna um Erro por conta do tipo de extensão, somente aceito ".pdf"</response>
         [HttpPost("split-pdf")]
-        public IActionResult PostPdfSplit([FromForm] PdfRequestModel model)
+        public IActionResult PostPdfSplit([FromForm] Domain.Models.Requests.PdfRequestModel model)
             => File(_pdfService.SplitPdf(model), "application/zip", "arquivo.zip");
 
         /// <summary>
         /// Junção de um ou mais PDFs
         /// </summary>
         /// <remarks>
-        ///     Será feito o upload de vários arquivos ".pdf", para cada ".pdf" 
-        ///     utilizaremos uma posição do dicionário que receberá um valor inteiro 
-        ///     que deverá ser sequêncial e a definicão de paginas naquela posição.
+        ///     Será feito o upload de vários arquivos ".pdf".
+        ///     
+        ///     Deverão também serem definidas as paginas que serão incluídas no novo pdf.
         ///</remarks>
         /// <returns>PDF</returns>
         /// <response code="200">Retorna um arquivo PDF unificado</response>
         /// <response code="406">Retorna um Erro por conta do tipo de extensão, somente aceito ".pdf"</response>
         [HttpPost("join-pdf")]
-        public IActionResult PostPdfJoin([FromForm] IEnumerable<IFormFile> files, [FromQuery] Dictionary<int, IEnumerable<int>> paginasPdf)
-            => File(_pdfService.JoinPdf(files, paginasPdf), "application/pdf", "temporary.pdf");
+        public IActionResult PostPdfJoin([FromForm] IEnumerable<IFormFile> files, [FromForm] List<string> paginas)
+            => File(_pdfService.JoinPdf(files, paginas), "application/pdf", "temporary.pdf");
 
         /// <summary>
         /// Criação de PDF a partir de um ".csv"

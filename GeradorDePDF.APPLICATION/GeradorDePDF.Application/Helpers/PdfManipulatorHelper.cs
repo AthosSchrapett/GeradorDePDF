@@ -1,4 +1,5 @@
-﻿using GeradorDePDF.Domain.Models.Requests;
+﻿using GeradorDePDF.Domain.Models;
+using GeradorDePDF.Domain.Models.Requests;
 using Microsoft.AspNetCore.Http;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
@@ -28,18 +29,13 @@ namespace GeradorDePDF.Application.Helpers
             return caminhos;
         }
 
-        public static string JuntarPdf(IEnumerable<IFormFile> files, Dictionary<int, IEnumerable<int>> paginasPdf)
+        public static string JuntarPdf(List<PdfJoin> pdfs)
         {
-            
             PdfDocument novoDocumento = new();
 
-            int contador = 1;
-
-            foreach (IFormFile file in files)
+            foreach (PdfJoin pdf in pdfs)
             {
-                IEnumerable<int> paginas = paginasPdf[contador];
-
-                using PdfDocument document = DefinirPaginasIncluidas(file, paginas, ref novoDocumento);
+                using PdfDocument document = DefinirPaginasIncluidas(pdf.Pdf, pdf.Paginas, ref novoDocumento);
             }
 
             string caminho = Path.Combine(Path.GetTempPath(), $"document.pdf");
