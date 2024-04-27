@@ -6,9 +6,9 @@ namespace GeradorDePDF.Domain.Services.Interfaces;
 
 public interface IPdfService
 {
-    public MemoryStream GeraPdf(IFormFile file);
-    public MemoryStream GeraPdf(ModelPdf model);
-    public MemoryStream SplitPdf(Models.Requests.PdfRequestModel model);
-    public MemoryStream JoinPdf(IEnumerable<IFormFile> files, List<string> paginas);
-    public MemoryStream GeraPdfWithCsv(CsvPdfRequestModel model);
+    public byte[] GeraPdf(IFormFile file);
+    public byte[] GeraPdf(ModelPdf model);
+    public byte[] SplitPdf(PdfRequestModel model);
+    public byte[] JoinPdf(IEnumerable<IFormFile> files, List<string> paginas);
+    public byte[] GeraPdfWithCsv(CsvPdfRequestModel model);
 }

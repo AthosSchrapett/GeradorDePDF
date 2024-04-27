@@ -58,7 +58,7 @@ public class ArquivoHelper
         return lines;
     }
 
-    public static MemoryStream GeraArquivoDownload(string caminho)
+    public static byte[] GeraArquivoDownload(string caminho)
     {
         FileStream origemStream = File.Open(caminho, FileMode.Open);
         MemoryStream memoryStream = new();
@@ -68,10 +68,10 @@ public class ArquivoHelper
 
         origemStream.Close();
 
-        return memoryStream;
+        return memoryStream.ToArray();
     }
 
-    public static MemoryStream GeraArquivoZip(List<string> caminhosPdf)
+    public static byte[] GeraArquivoZip(List<string> caminhosPdf)
     {
         MemoryStream memoryStream = new();
 
@@ -90,7 +90,7 @@ public class ArquivoHelper
 
         memoryStream.Seek(0, SeekOrigin.Begin);
 
-        return memoryStream;
+        return memoryStream.ToArray();
     }
 
     private static void CriaParagrafo(Document document, ModelPdf model)

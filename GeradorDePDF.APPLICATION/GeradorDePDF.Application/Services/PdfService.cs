@@ -11,7 +11,7 @@ namespace GeradorDePDF.Application.Services;
 
 public class PdfService : IPdfService
 {
-    public MemoryStream GeraPdf(IFormFile file)
+    public byte[] GeraPdf(IFormFile file)
     {
         if (Path.GetExtension(file.FileName) != ".txt")
             throw new FormatoArquivoIncorretoException();
@@ -25,14 +25,14 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream GeraPdf(ModelPdf model)
+    public byte[] GeraPdf(ModelPdf model)
     {
         string caminho = ArquivoHelper.CriaPdf(model);
 
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream GeraPdfWithCsv(CsvPdfRequestModel model)
+    public byte[] GeraPdfWithCsv(CsvPdfRequestModel model)
     {
         if(Path.GetExtension(model.File.FileName) != ".csv")
             throw new FormatoArquivoIncorretoException();
@@ -56,7 +56,7 @@ public class PdfService : IPdfService
         };
     }
 
-    public MemoryStream JoinPdf(IEnumerable<IFormFile> files, List<string> paginasPdf)
+    public byte[] JoinPdf(IEnumerable<IFormFile> files, List<string> paginasPdf)
     {
         if (files.Any(x => Path.GetExtension(x.FileName) != ".pdf"))
             throw new FormatoArquivoIncorretoException();
@@ -70,7 +70,7 @@ public class PdfService : IPdfService
         return ArquivoHelper.GeraArquivoDownload(caminho);
     }
 
-    public MemoryStream SplitPdf(Domain.Models.Requests.PdfRequestModel model)
+    public byte[] SplitPdf(PdfRequestModel model)
     {
         if (Path.GetExtension(model?.File?.FileName) != ".pdf")
             throw new FormatoArquivoIncorretoException();
