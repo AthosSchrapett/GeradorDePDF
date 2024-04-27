@@ -1,12 +1,10 @@
 .confirmation-dialog {
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
   background-color: #f5f5f5;
   padding: 20px;
   height: 100%;
   width: 100%;
   margin: 0 auto;
+  display: contents;
 }
 
 .confirmation-dialog .modal-content {
@@ -19,7 +17,11 @@
 }
 
 ::ng-deep .cdk-overlay-pane {
-  max-height: 65vh;
+  max-height: 100vh;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  display: contents;
 }
 
 .confirmation-dialog .buttons {
