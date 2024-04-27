@@ -2,6 +2,6 @@
 {
     public interface IDownloadService
     {
-        public MemoryStream DownloadModeloTxt();
+        public byte[] DownloadModeloTxt();
     }
 }

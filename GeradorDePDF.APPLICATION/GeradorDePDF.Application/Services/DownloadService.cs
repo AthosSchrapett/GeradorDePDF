@@ -5,7 +5,7 @@ namespace GeradorDePDF.Application.Services;
 
 public class DownloadService : IDownloadService
 {
-    public MemoryStream DownloadModeloTxt()
+    public byte[] DownloadModeloTxt()
     {
         string pathArquivoModelo = Path.Combine(Environment.CurrentDirectory, "Arquivos", "Modelo.txt");
 
