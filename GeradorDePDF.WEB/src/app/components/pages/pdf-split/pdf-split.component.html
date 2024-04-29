@@ -10,15 +10,6 @@
   <button [disabled]="areas.length === 0" type="submit" mat-raised-button (click)="submit()">ENVIAR</button>
 </div>
 
-@if (areas.length > 0) {
-
-  <!-- <div style="text-align: right;">
-    <button mat-raised-button color="primary" (click)="submit()">
-      SALVAR
-    </button>
-  </div> -->
-}
-
 @if (mensagemErroSelecaoPaginas !== '') {
   <mat-error>{{ mensagemErroSelecaoPaginas }}</mat-error>
 }
