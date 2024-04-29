@@ -34,4 +34,9 @@ export class PdfGeneratorService {
 
     return this.httpClient.post(url, formData, { responseType: 'blob' }).pipe(retry(1));
   }
+
+  postJoinPdf(formData: FormData): Observable<any> {
+    let url: string = `${this.endpoint}/join-pdf`
+    return this.httpClient.post(url, formData, { responseType: 'blob' }).pipe(retry(1));
+  }
 }
