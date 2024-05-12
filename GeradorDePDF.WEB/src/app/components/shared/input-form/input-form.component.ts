@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, inject, Output } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, inject, output } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +29,7 @@ export class InputFormComponent implements AfterViewChecked {
   formBuilder = inject(FormBuilder);
   changeDetectorRef = inject(ChangeDetectorRef);
 
-  @Output() modelPdf = new EventEmitter<ModelPDF | null>();
+  modelPdf = output<ModelPDF | null>();
 
   formulario: any = this.formBuilder.group({
     titulo: ["", Validators.required],
