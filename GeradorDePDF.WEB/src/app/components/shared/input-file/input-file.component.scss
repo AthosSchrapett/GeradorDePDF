@@ -6,6 +6,10 @@
   height: 55px;
   background: #f85252 !important;
   color: #fdefef !important;
+  &:disabled {
+    background: gray !important;
+    cursor: not-allowed;
+  }
 }
 
 .form-container {

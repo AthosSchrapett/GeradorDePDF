@@ -1,22 +1,35 @@
 <div class="form-container">
   <mat-form-field appearance="outline" class="flex-grow" style="margin-right: 15px;">
-    <mat-label>{{ textoSelecao }}</mat-label>
-    <mat-select [(ngModel)]="files" [required]="validaCampoSelecao" multiple (openedChange)="onSelectionChange()">
+    <mat-label>{{ textoSelecao() }}</mat-label>
+    <mat-select [(ngModel)]="files" [required]="validaCampoSelecao()" multiple (openedChange)="onSelectionChange()">
       @if (files.length === 0) {
         <mat-option [disabled]="true">VAZIO</mat-option>
       }
       @for (file of files; track file) {
         <mat-option [value]="file" (click)="removerArquivo($index)">
-          <span>{{file?.name}}</span><mat-icon>{{ deleteButtonIcon }}</mat-icon>
+          <span>{{file?.name}}</span><mat-icon>{{ deleteButtonIcon() }}</mat-icon>
         </mat-option>
       }
     </mat-select>
   </mat-form-field>
   <div class="button-upload-box">
-    <button [disabled]="!multiple && files.length > 0" type="button" class="arquivo-button" mat-raised-button (click)="onClick()">
-      <mat-icon>add</mat-icon>
-      {{ chooseLabel }}</button>
-    <input #fileUpload type="file" class="input_fileupload--hidden"
-      (change)="onFileSelected($event)" [(ngModel)]="inputFileName" [accept]="accept" [multiple]="multiple">
+    <button
+      [disabled]="!multiple() && files.length > 0"
+      type="button"
+      class="arquivo-button"
+      mat-raised-button
+      (click)="onClick()"
+    >
+      <mat-icon>add</mat-icon> {{ chooseLabel() }}
+    </button>
+    <input
+      #fileUpload
+      type="file"
+      class="input_fileupload--hidden"
+      (change)="onFileSelected($event)"
+      [(ngModel)]="inputFileName"
+      [accept]="accept()"
+      [multiple]="multiple()"
+    >
   </div>
 </div>
