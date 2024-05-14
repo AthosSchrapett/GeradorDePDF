@@ -10,6 +10,10 @@ import { PdfGeneratorService } from '../../../services/pdf-generator.service';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ProgressBarMode, MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSliderModule } from '@angular/material/slider';
+import { SignalRService } from 'src/app/services/signalR.service';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-pdf-generator',
@@ -18,6 +22,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
     FormsModule,
     MatSelectModule,
     MatButtonModule,
+    MatProgressBarModule,
+    MatSliderModule,
     InputFileComponent,
     InputFormComponent
   ],
@@ -25,6 +31,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrl: './pdf-generator.component.scss'
 })
 export class PdfGeneratorComponent {
+
+  constructor(private signalRService: SignalRService) {}
 
   pdfService = inject(PdfGeneratorService);
   spinnerService = inject(NgxSpinnerService);
@@ -38,6 +46,11 @@ export class PdfGeneratorComponent {
 
   pdfUrl: string = "";
 
+  color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'buffer';
+  value = 0;
+  bufferValue = 5;
+
   onFileSelected(files: File[]) {
     this.file = files[0];
   }
@@ -47,7 +60,7 @@ export class PdfGeneratorComponent {
   }
 
   validaEnvioPdf(): boolean {
-    if(this.tipoInclusao === TipoInclusao.Txt){
+    if (this.tipoInclusao === TipoInclusao.Txt) {
       return this.file === undefined
     }
     else {
@@ -60,7 +73,7 @@ export class PdfGeneratorComponent {
   }
 
   onSubmit(): void {
-    if(this.tipoInclusao === TipoInclusao.Txt){
+    if (this.tipoInclusao === TipoInclusao.Txt) {
       this.postPdfTxt();
     }
     else {
@@ -70,7 +83,12 @@ export class PdfGeneratorComponent {
 
   postPdfTxt(): void {
     if (this.file) {
-      this.spinnerService.show();
+      this.signalRService.progressUpdated$.subscribe(res => {
+        this.value = res
+        this.bufferValue = res + 5
+      });
+
+      // this.spinnerService.show();
       const formData = new FormData();
       formData.append('file', this.file, this.file?.name);
 
