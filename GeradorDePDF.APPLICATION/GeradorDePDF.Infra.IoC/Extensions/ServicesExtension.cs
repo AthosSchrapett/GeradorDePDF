@@ -1,4 +1,5 @@
 ﻿using GeradorDePDF.Application.Services;
+using GeradorDePDF.Domain.Interfaces;
 using GeradorDePDF.Domain.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,5 +11,6 @@ public static class ServicesExtension
     {
         services.AddScoped<IPdfService, PdfService>();
         services.AddScoped<IDownloadService, DownloadService>();
+        services.AddScoped<ISignalRService, SignalRService>();
     }
 }

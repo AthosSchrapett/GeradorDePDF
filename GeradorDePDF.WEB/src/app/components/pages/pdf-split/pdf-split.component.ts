@@ -12,6 +12,8 @@ import { ModalComponent } from '../../shared/modal/modal.component';
 import { take } from 'rxjs';
 import * as pdfjsLib from 'pdfjs-dist';
 import { InputFileComponent } from '../../shared/input-file/input-file.component';
+import { ProgressService } from 'src/app/services/progress.service';
+import { SignalRService } from 'src/app/services/signalR.service';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/pdf.worker.js';
 
@@ -43,7 +45,8 @@ export class PdfSplitComponent {
   validaExclusaoAreaFinal: boolean = true;
 
   pdfService = inject(PdfGeneratorService);
-  spinnerService = inject(NgxSpinnerService);
+  signalRService = inject(SignalRService);
+  progressService = inject(ProgressService);
   private _dialog = inject(MatDialog);
 
   onFileSelected(files: any) {
@@ -55,7 +58,6 @@ export class PdfSplitComponent {
     this.file = file;
 
     if (file) {
-      this.spinnerService.show();
       const reader = new FileReader();
       reader.onload = () => {
         const pdfUrl = reader.result;
@@ -102,7 +104,6 @@ export class PdfSplitComponent {
     }
 
     this.createArea();
-    this.spinnerService.hide();
   }
 
   createArea(): void {
@@ -230,8 +231,7 @@ export class PdfSplitComponent {
 
     if (this.file) {
 
-      this.spinnerService.show();
-
+      this.iniciaProgressBar();
       const formData = new FormData();
       formData.append('file', this.file, this.file.name);
       this.pdfSplit.file = formData;
@@ -259,12 +259,10 @@ export class PdfSplitComponent {
             }
             this.file = undefined;
             this.areas = [];
-            this.spinnerService.hide();
           },
           complete: () => {
             this.file = undefined;
             this.areas = [];
-            this.spinnerService.hide();
           }
         });
     }
@@ -302,6 +300,12 @@ export class PdfSplitComponent {
           element.pages.push(page[0]);
         });
       }
+    });
+  }
+
+  iniciaProgressBar(): void {
+    this.signalRService.progressUpdated$.subscribe(res => {
+      this.progressService.progress(res);
     });
   }
 }
