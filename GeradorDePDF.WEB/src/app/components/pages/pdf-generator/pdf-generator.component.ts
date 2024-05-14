@@ -1,5 +1,6 @@
+import { ProgressService } from './../../../services/progress.service';
 import { ModelPDF } from './../../../models/modelPdf.model';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select'
 import { FormsModule } from '@angular/forms';
 import { TipoInclusao } from '../../../enums/tipo-inclusao.enum';
@@ -9,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PdfGeneratorService } from '../../../services/pdf-generator.service';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { SignalRService } from 'src/app/services/signalR.service';
 
 @Component({
   selector: 'app-pdf-generator',
@@ -27,7 +28,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class PdfGeneratorComponent {
 
   pdfService = inject(PdfGeneratorService);
-  spinnerService = inject(NgxSpinnerService);
+  signalRService = inject(SignalRService);
+  progressService = inject(ProgressService);
   private _dialog = inject(MatDialog);
 
   tipoInclusao: TipoInclusao = TipoInclusao.Txt;
@@ -47,7 +49,7 @@ export class PdfGeneratorComponent {
   }
 
   validaEnvioPdf(): boolean {
-    if(this.tipoInclusao === TipoInclusao.Txt){
+    if (this.tipoInclusao === TipoInclusao.Txt) {
       return this.file === undefined
     }
     else {
@@ -60,7 +62,7 @@ export class PdfGeneratorComponent {
   }
 
   onSubmit(): void {
-    if(this.tipoInclusao === TipoInclusao.Txt){
+    if (this.tipoInclusao === TipoInclusao.Txt) {
       this.postPdfTxt();
     }
     else {
@@ -70,7 +72,7 @@ export class PdfGeneratorComponent {
 
   postPdfTxt(): void {
     if (this.file) {
-      this.spinnerService.show();
+      this.iniciaProgressBar();
       const formData = new FormData();
       formData.append('file', this.file, this.file?.name);
 
@@ -81,19 +83,17 @@ export class PdfGeneratorComponent {
         },
         error: (e) => {
           console.error(e);
-          this.spinnerService.hide();
         },
         complete: () => {
           this.openConfirmationDialog();
           this.file = undefined;
-          this.spinnerService.hide();
         }
       });
     }
   }
 
   postPdfFormulario(): void {
-    this.spinnerService.show();
+    this.iniciaProgressBar();
     this.pdfService.postFormulario(this.modelPdf).subscribe({
       next: (res: any) => {
         const blob = new Blob([res], { type: "application/pdf" });
@@ -101,12 +101,10 @@ export class PdfGeneratorComponent {
       },
       error: (e) => {
         console.error(e);
-        this.spinnerService.hide();
       },
       complete: () => {
         this.openConfirmationDialog();
         this.modelPdf = null;
-        this.spinnerService.hide();
       }
     });
   }
@@ -119,5 +117,9 @@ export class PdfGeneratorComponent {
     });
   }
 
-
+  iniciaProgressBar(): void {
+    this.signalRService.progressUpdated$.subscribe(res => {
+      this.progressService.progress(res);
+    });
+  }
 }
