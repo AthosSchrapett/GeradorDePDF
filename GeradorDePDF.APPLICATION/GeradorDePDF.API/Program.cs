@@ -36,6 +36,8 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAngularDevServer");
 
+app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();
