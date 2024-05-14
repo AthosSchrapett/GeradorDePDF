@@ -17,9 +17,7 @@ export class SignalRService {
   progressUpdated$: Observable<number> = this.progressSubject.asObservable();
 
   constructor() {
-    console.log(this.endpoint);
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withStatefulReconnect()
       .withUrl(this.endpoint)
       .build();
 
