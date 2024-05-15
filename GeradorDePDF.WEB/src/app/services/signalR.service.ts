@@ -18,7 +18,11 @@ export class SignalRService {
 
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(this.endpoint)
+      .withUrl(this.endpoint, {
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets
+      })
+      .withAutomaticReconnect()
       .build();
 
     this.hubConnection
